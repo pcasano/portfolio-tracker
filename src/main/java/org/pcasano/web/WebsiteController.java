@@ -25,7 +25,7 @@ public class WebsiteController {
         return "dividends.html";
     }
 
-    @GetMapping("/div_html")
+    @GetMapping("/div-html")
     public String allTransactions(Model model) {
         System.out.println("Aqui: " + dividendService.findAll());
         model.addAttribute("dividends", dividendService.findAll());

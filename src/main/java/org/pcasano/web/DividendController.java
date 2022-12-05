@@ -24,7 +24,7 @@ public class DividendController {
             return dividendService.findAll();
         }
 
-        @PostMapping("/dividend")
+        @PostMapping("/create-dividend")
         public Dividend createDividend(@RequestBody @Valid DividendDto dividendDto) {
             return dividendService.create(
                     dividendDto.getPaymentDate(),
@@ -36,4 +36,9 @@ public class DividendController {
                     dividendDto.getActivityCode()
             );
         }
+
+    @PostMapping("/create-dividends")
+    public List<Dividend> createDividends(@RequestBody @Valid List<DividendDto> listOfDividendDto) {
+        return dividendService.create(listOfDividendDto);
+    }
 }

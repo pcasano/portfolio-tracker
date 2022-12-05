@@ -4,31 +4,148 @@
     <meta charset="UTF-8">
     <title>Dividendos</title>
     <style>
-    table, th, td {
-  border: 1px solid black;
+#brute_dividend_table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
 }
-</style>
+
+#brute_dividend_table td, #brute_dividend_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#brute_dividend_table tr:nth-child(even){background-color: #f2f2f2;}
+
+#brute_dividend_table tr:hover {background-color: #ddd;}
+
+#brute_dividend_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+    </style>
 </head>
 <body>
 <h1>Dividends</h1>
-<table>
+<table id="brute_dividend_table">
     <tr>
-        <th> Brute </th>
-        <th> 2018 </th>
-        <th> 2019 </th>
-        <th> 2020 </th>
-        <th> 2021 </th>
-        <th> 2022 </th>
+        <th> Brute</th>
+        <th> 2018</th>
+        <th> 2019</th>
+        <th> 2020</th>
+        <th> 2021</th>
+        <th> 2022</th>
     </tr>
-    <tr th:each="dividend : ${dividends}">
+    <tr>
         <td th:text=January></td>
         <td th:text="${total_dividends}"></td>
-        <td th:text="${dividend.amount}"></td>
-        <td th:text="${dividend.amount}"></td>
-        <td th:text="${dividend.amount}"></td>
-        <td th:text="${dividend.amount}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
     </tr>
-    </table>
+    <tr>
+        <td th:text=February></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=March></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=April></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=May></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=June></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=July></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=August></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=September></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=October></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=November></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+    <tr>
+        <td th:text=December></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
+
+
+    <!--    <tr th:each="dividend : ${dividends}">
+            <td th:text=January></td>
+            <td th:text="${total_dividends}"></td>
+            <td th:text="${dividend.amount}"></td>
+            <td th:text="${dividend.amount}"></td>
+            <td th:text="${dividend.amount}"></td>
+            <td th:text="${dividend.amount}"></td>
+        </tr>-->
+</table>
 </body>
 </html>
 
