@@ -1,5 +1,6 @@
 package org.pcasano.web;
 
+import org.pcasano.model.Dividend;
 import org.pcasano.service.DividendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class WebsiteController {
     public String allTransactions(Model model) {
         System.out.println("Aqui: " + dividendService.findAll());
         model.addAttribute("dividends", dividendService.findAll());
+        model.addAttribute("total_dividends", dividendService.findAll().stream().mapToDouble(Dividend::getAmount).sum());
         return "dividends.html";
     }
 }

@@ -11,8 +11,7 @@
 </head>
 <body>
 <h1>Dividends</h1>
-<table style="width:100%">
-    <thead>
+<table>
     <tr>
         <th> Brute </th>
         <th> 2018 </th>
@@ -21,28 +20,16 @@
         <th> 2021 </th>
         <th> 2022 </th>
     </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${transactions.empty}">
-        <td colspan="2"> No Transactions Available </td>
+    <tr th:each="dividend : ${dividends}">
+        <td th:text=January></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${dividend.amount}"></td>
+        <td th:text="${dividend.amount}"></td>
+        <td th:text="${dividend.amount}"></td>
+        <td th:text="${dividend.amount}"></td>
     </tr>
-    <tr th:each="transaction : ${transactions}">
-        <td><span> January </span></td>
-        <td><span th:text="${transaction.reference}"> Author </span></td>
-        <td><span th:text="${transaction.reference}"> Author1 </span></td>
-        <td><span th:text="${transaction.reference}"> Author2 </span></td>
-        <td><span th:text="${transaction.reference}"> Author3 </span></td>
-        <td><span th:text="${transaction.reference}"> Author4 </span></td>
-    </tr>
-    <tr th:each="transaction : ${transactions}">
-        <td><span> February </span></td>
-        <td><span th:text="${transaction.reference}"> Author </span></td>
-        <td><span th:text="${transaction.reference}"> Author1 </span></td>
-        <td><span th:text="${transaction.reference}"> Author2 </span></td>
-        <td><span th:text="${transaction.reference}"> Author3 </span></td>
-        <td><span th:text="${transaction.reference}"> Author4 </span></td>
-    </tr>
-    </tbody>
-</table>
+    </table>
 </body>
 </html>
+
+
