@@ -41,6 +41,7 @@ public class DividendService {
                             dividendDto.getRate(),
                             dividendDto.getActivityCode()));
         }
+        dividends.addAll(listOfDividends);
         listOfDividends.forEach(div -> System.out.println(div.getMonth()));
         return listOfDividends;
     }
