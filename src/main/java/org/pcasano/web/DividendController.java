@@ -6,6 +6,7 @@ import org.pcasano.service.DividendService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class DividendController {
         }
 
         @PostMapping("/create-dividend")
-        public Dividend createDividend(@RequestBody @Valid DividendDto dividendDto) {
+        public Dividend createDividend(@RequestBody @Valid DividendDto dividendDto) throws ParseException {
             return dividendService.create(
                     dividendDto.getPaymentDate(),
                     dividendDto.getCompanyName(),
@@ -38,7 +39,7 @@ public class DividendController {
         }
 
     @PostMapping("/create-dividends")
-    public List<Dividend> createDividends(@RequestBody @Valid List<DividendDto> listOfDividendDto) {
+    public List<Dividend> createDividends(@RequestBody @Valid List<DividendDto> listOfDividendDto) throws ParseException {
         return dividendService.create(listOfDividendDto);
     }
 }

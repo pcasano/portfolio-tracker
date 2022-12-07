@@ -135,7 +135,14 @@
         <td th:text="${total_dividends}"></td>
         <td th:text="${total_dividends}"></td>
     </tr>
-
+    <tr>
+        <td th:text=Total></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+        <td th:text="${total_dividends}"></td>
+    </tr>
 
     <!--    <tr th:each="dividend : ${dividends}">
             <td th:text=January></td>
@@ -146,7 +153,43 @@
             <td th:text="${dividend.amount}"></td>
         </tr>-->
 </table>
+
+
+<table id="dividend_history_table">
+    <tr>
+        <th> Company</th>
+        <th> Brute Amount</th>
+        <th> Brute Amount €</th>
+        <th> Nett Amount</th>
+        <th> Nett Amount €</th>
+        <th> Date</th>
+        <th> Month</th>
+        <th> Year</th>
+        <th> Currency</th>
+        <th> Rate</th>
+    </tr>
+    <tr th:each="dividend : ${dividends}">
+        <td th:text="${dividend.companyName}"></td>
+        <td th:text="${dividend.amount * rate}"></td>
+        <td th:text="${dividend.amount - dividend.tax}"></td>
+        <td th:text="${(dividend.amount - dividend.tax) * rate}"></td>
+        <td th:text="${dividend.date}"></td>
+        <td th:text="${dividend.month}"></td>
+        <td th:text="${dividend.year}"></td>
+        <td th:text="${dividend.currency}"></td>
+        <td th:text="${dividend.rate}"></td>
+    </tr>
+</table>
+
+
 </body>
 </html>
 
 
+this.paymentDate = paymentDate;
+this.companyName = companyName;
+this.amount = amount;
+this.tax = tax;
+this.currency = currency;
+this.rate = rate;
+this.activityCode = activityCode;

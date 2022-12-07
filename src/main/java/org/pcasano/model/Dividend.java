@@ -1,6 +1,10 @@
 package org.pcasano.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class Dividend {
 
@@ -11,8 +15,10 @@ public class Dividend {
     private final String currency;
     private final double rate;
     private final String activityCode;
+    private final String month;
+    private final String year;
 
-    public Dividend(String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) {
+    public Dividend(String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) throws ParseException {
         this.paymentDate = paymentDate;
         this.companyName = companyName;
         this.amount = amount;
@@ -20,6 +26,10 @@ public class Dividend {
         this.currency = currency;
         this.rate = rate;
         this.activityCode = activityCode;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new SimpleDateFormat("dd.MM.yyyy").parse(this.paymentDate));
+        this.month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        this.year = Integer.valueOf(cal.get(Calendar.YEAR)).toString();
     }
 
     public String getPaymentDate() {
@@ -48,5 +58,13 @@ public class Dividend {
 
     public String getActivityCode() {
         return activityCode;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getYear() {
+        return year;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
 import java.util.Date;
 
 @Controller
@@ -26,7 +27,7 @@ public class WebsiteController {
     }
 
     @GetMapping("/div-html")
-    public String allTransactions(Model model) {
+    public String allTransactions(Model model) throws ParseException {
         System.out.println("Aqui: " + dividendService.findAll());
         model.addAttribute("dividends", dividendService.findAll());
         model.addAttribute("total_dividends", dividendService.findAll().stream().mapToDouble(Dividend::getAmount).sum());
