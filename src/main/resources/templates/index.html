@@ -1,161 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="@{/static/style.css}">
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:href="@{/style.css}" rel="stylesheet">
 </head>
 <body>
 <div class="main">
-    <div class="navbar">
-        <div class="menu">
-            <nav>
-                <ul>
-                    <li><a href="#seccion-1">Portfolio</a></li>
-                    <li><a href="#seccion-2">Activity</a></li>
-                    <li><a href="#seccion-3">Trades</a></li>
-                    <li><a href="#seccion-4">Dividends</a></li>
-                    <li><a href="#seccion-5">Forex</a></li>
-                </ul>
-            </nav>
-        </div>
+  <div class="navbar">
+    <div class="menu">
+      <nav>
+        <ul>
+          <li><a href="#seccion-1">Portfolio</a></li>
+          <li><a href="#seccion-2">Activity</a></li>
+          <li><a href="#seccion-3">Trades</a></li>
+          <li><a href="#seccion-4">Dividends</a></li>
+          <li><a href="#seccion-5">Forex</a></li>
+        </ul>
+      </nav>
     </div>
+  </div>
 </div>
 <div class="gap-60"></div>
 <div class="gap-40"></div>
 <table id="brute_dividend_table">
-    <tr>
-        <th> Brute</th>
-        <th> 2018</th>
-        <th> 2019</th>
-        <th> 2020</th>
-        <th> 2021</th>
-        <th> 2022</th>
-    </tr>
-    <tr>
-        <td th:text=January></td>
-        <td th:text="${mapOfDividends2018['January']}"></td>
-        <td th:text="${mapOfDividends2019['January']}"></td>
-        <td th:text="${mapOfDividends2020['January']}"></td>
-        <td th:text="${mapOfDividends2021['January']}"></td>
-        <td th:text="${mapOfDividends2022['January']}"></td>
-    </tr>
-    <tr>
-        <td th:text=February></td>
-        <td th:text="${mapOfDividends2018['February']}"></td>
-        <td th:text="${mapOfDividends2019['February']}"></td>
-        <td th:text="${mapOfDividends2020['February']}"></td>
-        <td th:text="${mapOfDividends2021['February']}"></td>
-        <td th:text="${mapOfDividends2022['February']}"></td>
-    </tr>
-    <tr>
-        <td th:text=March></td>
-        <td th:text="${mapOfDividends2018['March']}"></td>
-        <td th:text="${mapOfDividends2019['March']}"></td>
-        <td th:text="${mapOfDividends2020['March']}"></td>
-        <td th:text="${mapOfDividends2021['March']}"></td>
-        <td th:text="${mapOfDividends2022['March']}"></td>
-    </tr>
-    <tr>
-        <td th:text=April></td>
-        <td th:text="${mapOfDividends2018['April']}"></td>
-        <td th:text="${mapOfDividends2019['April']}"></td>
-        <td th:text="${mapOfDividends2020['April']}"></td>
-        <td th:text="${mapOfDividends2021['April']}"></td>
-        <td th:text="${mapOfDividends2022['April']}"></td>
-    </tr>
-    <tr>
-        <td th:text=May></td>
-        <td th:text="${mapOfDividends2018['May']}"></td>
-        <td th:text="${mapOfDividends2019['May']}"></td>
-        <td th:text="${mapOfDividends2020['May']}"></td>
-        <td th:text="${mapOfDividends2021['May']}"></td>
-        <td th:text="${mapOfDividends2022['May']}"></td>
-    </tr>
-    <tr>
-        <td th:text=June></td>
-        <td th:text="${mapOfDividends2018['June']}"></td>
-        <td th:text="${mapOfDividends2019['June']}"></td>
-        <td th:text="${mapOfDividends2020['June']}"></td>
-        <td th:text="${mapOfDividends2021['June']}"></td>
-        <td th:text="${mapOfDividends2022['June']}"></td>
-    </tr>
-    <tr>
-        <td th:text=July></td>
-        <td th:text="${mapOfDividends2018['July']}"></td>
-        <td th:text="${mapOfDividends2019['July']}"></td>
-        <td th:text="${mapOfDividends2020['July']}"></td>
-        <td th:text="${mapOfDividends2021['July']}"></td>
-        <td th:text="${mapOfDividends2022['July']}"></td>
-    </tr>
-    <tr>
-        <td th:text=August></td>
-        <td th:text="${mapOfDividends2018['August']}"></td>
-        <td th:text="${mapOfDividends2019['August']}"></td>
-        <td th:text="${mapOfDividends2020['August']}"></td>
-        <td th:text="${mapOfDividends2021['August']}"></td>
-        <td th:text="${mapOfDividends2022['August']}"></td>
-    </tr>
-    <tr>
-        <td th:text=September></td>
-        <td th:text="${mapOfDividends2018['September']}"></td>
-        <td th:text="${mapOfDividends2019['September']}"></td>
-        <td th:text="${mapOfDividends2020['September']}"></td>
-        <td th:text="${mapOfDividends2021['September']}"></td>
-        <td th:text="${mapOfDividends2022['September']}"></td>
-    </tr>
-    <tr>
-        <td th:text=October></td>
-        <td th:text="${mapOfDividends2018['October']}"></td>
-        <td th:text="${mapOfDividends2019['October']}"></td>
-        <td th:text="${mapOfDividends2020['October']}"></td>
-        <td th:text="${mapOfDividends2021['October']}"></td>
-        <td th:text="${mapOfDividends2022['October']}"></td>
-    </tr>
-    <tr>
-        <td th:text=November></td>
-        <td th:text="${mapOfDividends2018['November']}"></td>
-        <td th:text="${mapOfDividends2019['November']}"></td>
-        <td th:text="${mapOfDividends2020['November']}"></td>
-        <td th:text="${mapOfDividends2021['November']}"></td>
-        <td th:text="${mapOfDividends2022['November']}"></td>
-    </tr>
-    <tr>
-        <td th:text=December></td>
-        <td th:text="${mapOfDividends2018['December']}"></td>
-        <td th:text="${mapOfDividends2019['December']}"></td>
-        <td th:text="${mapOfDividends2020['December']}"></td>
-        <td th:text="${mapOfDividends2021['December']}"></td>
-        <td th:text="${mapOfDividends2022['December']}"></td>
-    </tr>
+  <tr>
+    <th> Brute</th>
+    <th> 2018</th>
+    <th> 2019</th>
+    <th> 2020</th>
+    <th> 2021</th>
+    <th> 2022</th>
+  </tr>
+  <tr>
+    <td th:text=January></td>
+    <td th:text="${mapOfDividends2018['January']}"></td>
+    <td th:text="${mapOfDividends2019['January']}"></td>
+    <td th:text="${mapOfDividends2020['January']}"></td>
+    <td th:text="${mapOfDividends2021['January']}"></td>
+    <td th:text="${mapOfDividends2022['January']}"></td>
+  </tr>
+  <tr>
+    <td th:text=February></td>
+    <td th:text="${mapOfDividends2018['February']}"></td>
+    <td th:text="${mapOfDividends2019['February']}"></td>
+    <td th:text="${mapOfDividends2020['February']}"></td>
+    <td th:text="${mapOfDividends2021['February']}"></td>
+    <td th:text="${mapOfDividends2022['February']}"></td>
+  </tr>
+  <tr>
+    <td th:text=March></td>
+    <td th:text="${mapOfDividends2018['March']}"></td>
+    <td th:text="${mapOfDividends2019['March']}"></td>
+    <td th:text="${mapOfDividends2020['March']}"></td>
+    <td th:text="${mapOfDividends2021['March']}"></td>
+    <td th:text="${mapOfDividends2022['March']}"></td>
+  </tr>
+  <tr>
+    <td th:text=April></td>
+    <td th:text="${mapOfDividends2018['April']}"></td>
+    <td th:text="${mapOfDividends2019['April']}"></td>
+    <td th:text="${mapOfDividends2020['April']}"></td>
+    <td th:text="${mapOfDividends2021['April']}"></td>
+    <td th:text="${mapOfDividends2022['April']}"></td>
+  </tr>
+  <tr>
+    <td th:text=May></td>
+    <td th:text="${mapOfDividends2018['May']}"></td>
+    <td th:text="${mapOfDividends2019['May']}"></td>
+    <td th:text="${mapOfDividends2020['May']}"></td>
+    <td th:text="${mapOfDividends2021['May']}"></td>
+    <td th:text="${mapOfDividends2022['May']}"></td>
+  </tr>
+  <tr>
+    <td th:text=June></td>
+    <td th:text="${mapOfDividends2018['June']}"></td>
+    <td th:text="${mapOfDividends2019['June']}"></td>
+    <td th:text="${mapOfDividends2020['June']}"></td>
+    <td th:text="${mapOfDividends2021['June']}"></td>
+    <td th:text="${mapOfDividends2022['June']}"></td>
+  </tr>
+  <tr>
+    <td th:text=July></td>
+    <td th:text="${mapOfDividends2018['July']}"></td>
+    <td th:text="${mapOfDividends2019['July']}"></td>
+    <td th:text="${mapOfDividends2020['July']}"></td>
+    <td th:text="${mapOfDividends2021['July']}"></td>
+    <td th:text="${mapOfDividends2022['July']}"></td>
+  </tr>
+  <tr>
+    <td th:text=August></td>
+    <td th:text="${mapOfDividends2018['August']}"></td>
+    <td th:text="${mapOfDividends2019['August']}"></td>
+    <td th:text="${mapOfDividends2020['August']}"></td>
+    <td th:text="${mapOfDividends2021['August']}"></td>
+    <td th:text="${mapOfDividends2022['August']}"></td>
+  </tr>
+  <tr>
+    <td th:text=September></td>
+    <td th:text="${mapOfDividends2018['September']}"></td>
+    <td th:text="${mapOfDividends2019['September']}"></td>
+    <td th:text="${mapOfDividends2020['September']}"></td>
+    <td th:text="${mapOfDividends2021['September']}"></td>
+    <td th:text="${mapOfDividends2022['September']}"></td>
+  </tr>
+  <tr>
+    <td th:text=October></td>
+    <td th:text="${mapOfDividends2018['October']}"></td>
+    <td th:text="${mapOfDividends2019['October']}"></td>
+    <td th:text="${mapOfDividends2020['October']}"></td>
+    <td th:text="${mapOfDividends2021['October']}"></td>
+    <td th:text="${mapOfDividends2022['October']}"></td>
+  </tr>
+  <tr>
+    <td th:text=November></td>
+    <td th:text="${mapOfDividends2018['November']}"></td>
+    <td th:text="${mapOfDividends2019['November']}"></td>
+    <td th:text="${mapOfDividends2020['November']}"></td>
+    <td th:text="${mapOfDividends2021['November']}"></td>
+    <td th:text="${mapOfDividends2022['November']}"></td>
+  </tr>
+  <tr>
+    <td th:text=December></td>
+    <td th:text="${mapOfDividends2018['December']}"></td>
+    <td th:text="${mapOfDividends2019['December']}"></td>
+    <td th:text="${mapOfDividends2020['December']}"></td>
+    <td th:text="${mapOfDividends2021['December']}"></td>
+    <td th:text="${mapOfDividends2022['December']}"></td>
+  </tr>
 </table>
 
 <div class="gap-60"></div>
 <table id="dividend_history_table">
-    <tr>
-        <th> Company</th>
-        <th> Brute Amount</th>
-        <th> Brute Amount €</th>
-        <th> Nett Amount</th>
-        <th> Nett Amount €</th>
-        <th> Date</th>
-        <th> Month</th>
-        <th> Year</th>
-        <th> Currency</th>
-        <th> Rate</th>
-    </tr>
-    <tr th:each="dividend : ${dividends}">
-        <td th:text="${dividend.companyName}"></td>
-        <td th:text="${dividend.amount}"></td>
-        <td th:text="${#numbers.formatDecimal((dividend.amount * dividend.rate), 0, 'COMMA', 2, 'POINT')}"></td>
-        <td th:text="${dividend.amount - dividend.tax}"></td>
-        <td th:text="${#numbers.formatDecimal((dividend.amount - dividend.tax) * dividend.rate, 0, 'COMMA', 2, 'POINT')}"></td>
-        <td th:text="${dividend.paymentDate}"></td>
-        <td th:text="${dividend.month}"></td>
-        <td th:text="${dividend.year}"></td>
-        <td th:text="${dividend.currency}"></td>
-        <td th:text="${dividend.rate}"></td>
-    </tr>
+  <tr>
+    <th> Company</th>
+    <th> Brute Amount</th>
+    <th> Brute Amount €</th>
+    <th> Nett Amount</th>
+    <th> Nett Amount €</th>
+    <th> Date</th>
+    <th> Month</th>
+    <th> Year</th>
+    <th> Currency</th>
+    <th> Rate</th>
+  </tr>
+  <tr th:each="dividend : ${dividends}">
+    <td th:text="${dividend.companyName}"></td>
+    <td th:text="${dividend.amount}"></td>
+    <td th:text="${#numbers.formatDecimal((dividend.amount * dividend.rate), 0, 'COMMA', 2, 'POINT')}"></td>
+    <td th:text="${dividend.amount - dividend.tax}"></td>
+    <td th:text="${#numbers.formatDecimal((dividend.amount - dividend.tax) * dividend.rate, 0, 'COMMA', 2, 'POINT')}"></td>
+    <td th:text="${dividend.paymentDate}"></td>
+    <td th:text="${dividend.month}"></td>
+    <td th:text="${dividend.year}"></td>
+    <td th:text="${dividend.currency}"></td>
+    <td th:text="${dividend.rate}"></td>
+  </tr>
 </table>
 
 </body>

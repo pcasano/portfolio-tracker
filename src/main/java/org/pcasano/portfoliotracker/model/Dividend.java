@@ -1,13 +1,11 @@
-package org.pcasano.model;
+package org.pcasano.portfoliotracker.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class Dividend {
-
     private final String paymentDate;
     private final String companyName;
     private final double amount;

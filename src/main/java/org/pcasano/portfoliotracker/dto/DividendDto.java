@@ -1,12 +1,8 @@
-package org.pcasano.dto;
+package org.pcasano.portfoliotracker.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.PastOrPresent;
-import java.util.Date;
-
 public class DividendDto {
-
     @JsonProperty("payment_date")
     private String paymentDate;
     @JsonProperty("company_name")
