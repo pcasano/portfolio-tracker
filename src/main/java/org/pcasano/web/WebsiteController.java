@@ -29,8 +29,12 @@ public class WebsiteController {
     @GetMapping("/div-html")
     public String allTransactions(Model model) throws ParseException {
         System.out.println("Aqui: " + dividendService.findAll());
+        model.addAttribute("mapOfDividends2018", dividendService.getDividends2018());
+        model.addAttribute("mapOfDividends2019", dividendService.getDividends2019());
+        model.addAttribute("mapOfDividends2020", dividendService.getDividends2020());
+        model.addAttribute("mapOfDividends2021", dividendService.getDividends2021());
+        model.addAttribute("mapOfDividends2022", dividendService.getDividends2022());
         model.addAttribute("dividends", dividendService.findAll());
-        model.addAttribute("total_dividends", dividendService.findAll().stream().mapToDouble(Dividend::getAmount).sum());
-        return "dividends.html";
+        return "index.html";
     }
 }
