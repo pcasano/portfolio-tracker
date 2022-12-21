@@ -20,11 +20,7 @@ public class DividendService {
     private Map<String, String> dividends2020 = new HashMap<>();
     private Map<String, String> dividends2021 = new HashMap<>();
     private Map<String, String> dividends2022 = new HashMap<>();
-
-
-/*    public List<Dividend> findAll() {
-        return dividends;
-    }*/
+    private Map<String, String> dividends2023 = new HashMap<>();
 
         public List<Dividend> findAll() {
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -64,7 +60,10 @@ public class DividendService {
         this.setMapOfDividendsGivenYear("2022", this.dividends2022);
         return this.dividends2022;
     }
-
+    public Map<String, String> getDividends2023() {
+        this.setMapOfDividendsGivenYear("2023", this.dividends2023);
+        return this.dividends2023;
+    }
 
     public Dividend create(String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) throws ParseException {
         Dividend dividend = new Dividend(paymentDate, companyName, amount, tax, currency, rate, activityCode);

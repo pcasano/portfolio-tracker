@@ -1,5 +1,6 @@
 
 .gap-20 {
+    background: #b6d6d9;
     width:100%;
     height:20px;
 }
@@ -15,19 +16,20 @@
     width:100%;
     height:60px;
 }
+.content {
+    background: Gainsboro;
+}
+.total_row {
+    font-weight: bold;
+}
+
 ul {
-/*    background: #ddd;*/
+    background: #b6d6d9;
     list-style: none;
     margin: 0;
     padding: 0;
     text-align: center;
 }
-/*li {
-    display: inline-block;
-    background: #ddd;
-    margin: 0.5em;
-    padding: 0.5em;
-}*/
 
 li {
     display: inline-block;
@@ -47,7 +49,7 @@ ul :hover{
     color: #023FFF;
 }
 a:link { text-decoration: none; }
-a:visited { text-decoration: none; }
+li:visited { text-decoration: none; }
 
 
 #brute_dividend_table, #dividend_history_table {
@@ -60,8 +62,10 @@ a:visited { text-decoration: none; }
   padding: 8px;
 }
 
-#brute_dividend_table tr:nth-child(even){background-color: #f2f2f2;}
-#dividend_history_table tr:nth-child(even){background-color: #f2f2f2;}
+#brute_dividend_table tr:nth-child(even){background-color: #b6d6d9;}
+#dividend_history_table tr:nth-child(even){background-color: #b6d6d9;}
+#brute_dividend_table tr:nth-child(odd){background-color: FloralWhite;}
+#dividend_history_table tr:nth-child(odd){background-color: FloralWhite;}
 
 #brute_dividend_table tr:hover {background-color: #ddd;}
 #dividend_history_table tr:hover {background-color: #ddd;}
@@ -70,6 +74,6 @@ a:visited { text-decoration: none; }
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04AA6D;
+  background-color: #36304a;
   color: white;
 }
