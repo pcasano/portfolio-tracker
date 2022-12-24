@@ -18,7 +18,7 @@ import java.util.Locale;
 
 
 @Entity
-@Table(name = "Dividend")
+@Table(name = "Dividends")
 @Setter
 @Getter
 public class Dividend {
