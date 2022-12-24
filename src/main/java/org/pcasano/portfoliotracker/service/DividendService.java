@@ -75,8 +75,8 @@ public class DividendService {
         return this.dividends2023;
     }
 
-    public Dividend create(Integer id, String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) throws ParseException {
-        Dividend dividend = new Dividend(id, paymentDate, companyName, amount, tax, currency, rate, activityCode);
+    public Dividend create(String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) throws ParseException {
+        Dividend dividend = new Dividend(paymentDate, companyName, amount, tax, currency, rate, activityCode);
         return dividendRepository.save(dividend);
     }
 
@@ -85,7 +85,6 @@ public class DividendService {
         for (DividendDto dividendDto : listOfDividendDto) {
             listOfDividends.add(
                     new Dividend(
-                            dividendDto.getId(),
                             dividendDto.getPaymentDate(),
                             dividendDto.getCompanyName(),
                             dividendDto.getAmount(),
@@ -95,7 +94,6 @@ public class DividendService {
                             dividendDto.getActivityCode()));
         }
         dividendRepository.saveAll(listOfDividends);
-        listOfDividends.forEach(div -> System.out.println(div.getMonth()));
         return listOfDividends;
     }
 
@@ -104,17 +102,17 @@ public class DividendService {
     }
 
     private void setMapOfDividendsGivenYear(String year, Map<String, String> dividends) {
-        dividends.put("January", Double.toString(this.getDividendsGivenMonthAndYear(year, "January").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("February", Double.toString(this.getDividendsGivenMonthAndYear(year, "February").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("March", Double.toString(this.getDividendsGivenMonthAndYear(year, "March").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("April", Double.toString(this.getDividendsGivenMonthAndYear(year, "April").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("May", Double.toString(this.getDividendsGivenMonthAndYear(year, "May").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("June", Double.toString(this.getDividendsGivenMonthAndYear(year, "June").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("July", Double.toString(this.getDividendsGivenMonthAndYear(year, "July").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("August", Double.toString(this.getDividendsGivenMonthAndYear(year, "August").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("September", Double.toString(this.getDividendsGivenMonthAndYear(year, "September").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("October", Double.toString(this.getDividendsGivenMonthAndYear(year, "October").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("November", Double.toString(this.getDividendsGivenMonthAndYear(year, "November").stream().mapToDouble(Dividend::getAmount).sum()));
-        dividends.put("December", Double.toString(this.getDividendsGivenMonthAndYear(year, "December").stream().mapToDouble(Dividend::getAmount).sum()));
+        dividends.put("January", Double.toString(this.getDividendsGivenMonthAndYear(year, "January").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("February", Double.toString(this.getDividendsGivenMonthAndYear(year, "February").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("March", Double.toString(this.getDividendsGivenMonthAndYear(year, "March").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("April", Double.toString(this.getDividendsGivenMonthAndYear(year, "April").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("May", Double.toString(this.getDividendsGivenMonthAndYear(year, "May").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("June", Double.toString(this.getDividendsGivenMonthAndYear(year, "June").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("July", Double.toString(this.getDividendsGivenMonthAndYear(year, "July").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("August", Double.toString(this.getDividendsGivenMonthAndYear(year, "August").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("September", Double.toString(this.getDividendsGivenMonthAndYear(year, "September").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("October", Double.toString(this.getDividendsGivenMonthAndYear(year, "October").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("November", Double.toString(this.getDividendsGivenMonthAndYear(year, "November").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
+        dividends.put("December", Double.toString(this.getDividendsGivenMonthAndYear(year, "December").stream().mapToDouble(div -> div.getAmount() * div.getRate()).sum()));
     }
 }
