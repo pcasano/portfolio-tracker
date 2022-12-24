@@ -27,6 +27,7 @@ public class DividendController {
     @PostMapping("/create-dividend")
     public Dividend createDividend(@RequestBody DividendDto dividendDto) throws ParseException {
         return dividendService.create(
+                dividendDto.getId(),
                 dividendDto.getPaymentDate(),
                 dividendDto.getCompanyName(),
                 dividendDto.getAmount(),

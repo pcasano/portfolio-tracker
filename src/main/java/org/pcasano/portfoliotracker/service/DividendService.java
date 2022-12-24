@@ -2,7 +2,9 @@ package org.pcasano.portfoliotracker.service;
 
 import org.pcasano.portfoliotracker.dto.DividendDto;
 import org.pcasano.portfoliotracker.model.Dividend;
-import org.springframework.stereotype.Component;
+import org.pcasano.portfoliotracker.repository.DividendRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,8 +13,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 
-@Component
+@Service
 public class DividendService {
+
+    @Autowired
+    private DividendRepository dividendRepository;
 
     private List<Dividend> dividends = new CopyOnWriteArrayList<>();
     private Map<String, String> dividends2018 = new HashMap<>();
@@ -23,16 +28,21 @@ public class DividendService {
     private Map<String, String> dividends2023 = new HashMap<>();
 
         public List<Dividend> findAll() {
+            Iterator<Dividend> dividendIterator = dividendRepository.findAll().iterator();
+            List<Dividend> dividendList = new ArrayList<>();
+            while (dividendIterator.hasNext())
+                dividendList.add(dividendIterator.next());
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-            dividends.sort(Comparator.comparing((div -> {
+            dividendList.sort(Comparator.comparing((div -> {
                 try {
                     return sdf.parse(div.getPaymentDate());
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
             })));
-            Collections.reverse(dividends);
-            return dividends;
+            Collections.reverse(dividendList);
+            return dividendList;
         }
 
 
@@ -65,10 +75,9 @@ public class DividendService {
         return this.dividends2023;
     }
 
-    public Dividend create(String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) throws ParseException {
-        Dividend dividend = new Dividend(paymentDate, companyName, amount, tax, currency, rate, activityCode);
-        dividends.add(dividend);
-        return dividend;
+    public Dividend create(Integer id, String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) throws ParseException {
+        Dividend dividend = new Dividend(id, paymentDate, companyName, amount, tax, currency, rate, activityCode);
+        return dividendRepository.save(dividend);
     }
 
     public List<Dividend> create(List<DividendDto> listOfDividendDto) throws ParseException {
@@ -76,6 +85,7 @@ public class DividendService {
         for (DividendDto dividendDto : listOfDividendDto) {
             listOfDividends.add(
                     new Dividend(
+                            dividendDto.getId(),
                             dividendDto.getPaymentDate(),
                             dividendDto.getCompanyName(),
                             dividendDto.getAmount(),
@@ -84,13 +94,13 @@ public class DividendService {
                             dividendDto.getRate(),
                             dividendDto.getActivityCode()));
         }
-        dividends.addAll(listOfDividends);
+        dividendRepository.saveAll(listOfDividends);
         listOfDividends.forEach(div -> System.out.println(div.getMonth()));
         return listOfDividends;
     }
 
     private List<Dividend> getDividendsGivenMonthAndYear(String year, String month) {
-        return dividends.stream().filter(div -> div.getYear().equals(year) && div.getMonth().equals(month)).toList();
+        return this.findAll().stream().filter(div -> div.getYear().equals(year) && div.getMonth().equals(month)).toList();
     }
 
     private void setMapOfDividendsGivenYear(String year, Map<String, String> dividends) {

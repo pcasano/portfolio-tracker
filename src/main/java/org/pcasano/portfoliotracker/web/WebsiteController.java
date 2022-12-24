@@ -5,6 +5,7 @@ import org.pcasano.portfoliotracker.service.DividendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
@@ -17,6 +18,12 @@ public class WebsiteController {
     }
 
     private DividendService dividendService;
+
+
+    @PostMapping("/create")
+    public void create(){
+
+    }
 
     @GetMapping("/")
     public String homepage(Model model, @RequestParam(required = false, defaultValue = "stranger") String username) {

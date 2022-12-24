@@ -3,6 +3,7 @@ package org.pcasano.portfoliotracker.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DividendDto {
+    private Integer id;
     @JsonProperty("payment_date")
     private String paymentDate;
     @JsonProperty("company_name")
@@ -14,6 +15,14 @@ public class DividendDto {
     @JsonProperty("activity_code")
     private String activityCode;
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
