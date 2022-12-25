@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio</title>
+  <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="main">
+  <div class="navbar">
+    <div class="menu">
+      <nav>
+        <ul>
+          <li><a href="http://localhost:8088/portfolio-html">Portfolio</a></li>
+          <li><a href="http://localhost:8088/trades-html">Trades</a></li>
+          <li><a href="http://localhost:8088/dividends-html">Dividends</a></li>
+          <li><a href="#seccion-5">Forex</a></li>
+        </ul>
+      </nav>
+      <div class="gap-20"></div>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="gap-60"></div>
+  <div class="gap-40"></div>
+
+  <table id="portfolio_table">
+    <tr>
+      <th> Company Name</th>
+      <th> Symbol</th>
+      <th> Quantity</th>
+      <th> Price Original</th>
+      <th> Value $€</th>
+      <th> Value €</th>
+      <th> Currency</th>
+    </tr>
+    <tr th:each="item : ${portfolio}">
+      <td th:text="${item.companyName}"></td>
+      <td th:text="${item.symbol}"></td>
+      <td th:text="${item.quantity}"></td>
+      <td th:text="${item.priceOriginalCurrency}"></td>
+      <td th:text="${item.valueOriginalCurrency}"></td>
+      <td th:text="${item.valueBaseCurrency}"></td>
+      <td th:text="${item.currency}"></td>
+    </tr>
+  </table>
+  <div class="gap-60"></div>
+  <div class="gap-40"></div>
+</div>
+
+
+</body>
+</html>
