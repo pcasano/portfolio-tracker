@@ -22,6 +22,11 @@
 .total_row {
     font-weight: bold;
 }
+#chart div
+{
+    display: inline-block;
+    border: solid 1px #000;
+}
 
 ul {
     background: #b6d6d9;
@@ -30,7 +35,6 @@ ul {
     padding: 0;
     text-align: center;
 }
-
 li {
     display: inline-block;
     text-decoration: none;
