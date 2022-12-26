@@ -51,7 +51,12 @@
 			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.yahoofinance-api</groupId>
+            <artifactId>YahooFinanceAPI</artifactId>
+            <version>3.17.0</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

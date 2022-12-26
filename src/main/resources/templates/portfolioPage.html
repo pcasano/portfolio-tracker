@@ -30,8 +30,12 @@
       <th> Company Name</th>
       <th> Symbol</th>
       <th> Quantity</th>
-      <th> Price Original</th>
-      <th> Value $€</th>
+      <th> Open Price</th>
+      <th> Market Price</th>
+      <th> Dif %</th>
+      <th> Open Value $€</th>
+      <th> Market Value $€</th>
+      <th> Dif Value</th>
       <th> Value €</th>
       <th> Currency</th>
     </tr>
@@ -39,8 +43,12 @@
       <td th:text="${item.companyName}"></td>
       <td th:text="${item.symbol}"></td>
       <td th:text="${item.quantity}"></td>
-      <td th:text="${item.priceOriginalCurrency}"></td>
+      <td th:text="${#numbers.formatDecimal((item.priceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+      <td th:text="${item.currentPriceOriginalCurrency}"></td>
+      <td th:text="${#numbers.formatDecimal((100 * (item.currentPriceOriginalCurrency - item.priceOriginalCurrency) / item.priceOriginalCurrency), 0, 2, 'POINT')}"></td>
       <td th:text="${item.valueOriginalCurrency}"></td>
+      <td th:text="${item.currentPriceOriginalCurrency * item.quantity}"></td>
+      <td th:text="${#numbers.formatDecimal(((item.currentPriceOriginalCurrency * item.quantity) - item.valueOriginalCurrency), 0, 2, 'POINT')}"></td>
       <td th:text="${item.valueBaseCurrency}"></td>
       <td th:text="${item.currency}"></td>
     </tr>

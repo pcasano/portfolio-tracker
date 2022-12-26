@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import yahoofinance.YahooFinance;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -78,17 +80,24 @@ public class WebsiteController {
             int quantity = tradeList.stream().filter(trade -> trade.getSymbol().equals(symbol)).mapToInt(Trade::getQuantity).sum();
             if (quantity > 0) {
                 List<Trade> filteredTradeList = tradeList.stream().filter(trade -> trade.getSymbol().equals(symbol)).toList();
-                portfolioList.add(new Portfolio(
-                        filteredTradeList.stream().map(Trade::getDescription).findFirst().orElse("N/A"),
-                        symbol,
-                        quantity,
-                        filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum() / quantity,
-                        filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum(),
-                        filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency() * trade.getRate()).sum(),
-                        filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A")
-                ));
+                try {
+                    portfolioList.add(new Portfolio(
+                            filteredTradeList.stream().map(Trade::getDescription).findFirst().orElse("N/A"),
+                            symbol,
+                            quantity,
+                            filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum() / quantity,
+                            filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum(),
+                            filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency() * trade.getRate()).sum(),
+                            YahooFinance.get(symbol).getQuote().getPrice().doubleValue(),
+                            filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A")
+                    ));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
+        //YahooFinance.get(objectCompany.toString()).getQuote().price
+
         model.addAttribute("portfolio", portfolioList);
         return "portfolioPage.html";
     }
