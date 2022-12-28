@@ -35,12 +35,12 @@ public class WebsiteController {
         model.addAttribute("mapOfDividends2021", dividendService.getDividends2021());
         model.addAttribute("mapOfDividends2022", dividendService.getDividends2022());
         model.addAttribute("mapOfDividends2023", dividendService.getDividends2023());
-        model.addAttribute("dividends2018", dividendService.findAll().stream().filter(div -> div.getYear().equals("2018")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2019", dividendService.findAll().stream().filter(div -> div.getYear().equals("2019")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2020", dividendService.findAll().stream().filter(div -> div.getYear().equals("2020")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2021", dividendService.findAll().stream().filter(div -> div.getYear().equals("2021")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2022", dividendService.findAll().stream().filter(div -> div.getYear().equals("2022")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2023", dividendService.findAll().stream().filter(div -> div.getYear().equals("2023")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
+        model.addAttribute("dividends2018", dividendService.findAll().stream().filter(div -> div.getYear().equals("2018")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2019", dividendService.findAll().stream().filter(div -> div.getYear().equals("2019")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2020", dividendService.findAll().stream().filter(div -> div.getYear().equals("2020")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2021", dividendService.findAll().stream().filter(div -> div.getYear().equals("2021")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2022", dividendService.findAll().stream().filter(div -> div.getYear().equals("2022")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2023", dividendService.findAll().stream().filter(div -> div.getYear().equals("2023")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
         model.addAttribute("dividends", dividendService.findAll());
         return "dividendPage.html";
     }
@@ -53,12 +53,12 @@ public class WebsiteController {
         model.addAttribute("mapOfDividends2021", dividendService.getDividends2021());
         model.addAttribute("mapOfDividends2022", dividendService.getDividends2022());
         model.addAttribute("mapOfDividends2023", dividendService.getDividends2023());
-        model.addAttribute("dividends2018", dividendService.findAll().stream().filter(div -> div.getYear().equals("2018")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2019", dividendService.findAll().stream().filter(div -> div.getYear().equals("2019")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2020", dividendService.findAll().stream().filter(div -> div.getYear().equals("2020")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2021", dividendService.findAll().stream().filter(div -> div.getYear().equals("2021")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2022", dividendService.findAll().stream().filter(div -> div.getYear().equals("2022")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
-        model.addAttribute("dividends2023", dividendService.findAll().stream().filter(div -> div.getYear().equals("2023")).mapToDouble(div -> div.getAmount() * div.getRate()).sum());
+        model.addAttribute("dividends2018", dividendService.findAll().stream().filter(div -> div.getYear().equals("2018")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2019", dividendService.findAll().stream().filter(div -> div.getYear().equals("2019")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2020", dividendService.findAll().stream().filter(div -> div.getYear().equals("2020")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2021", dividendService.findAll().stream().filter(div -> div.getYear().equals("2021")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2022", dividendService.findAll().stream().filter(div -> div.getYear().equals("2022")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("dividends2023", dividendService.findAll().stream().filter(div -> div.getYear().equals("2023")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
         model.addAttribute("trades", tradeService.findAll());
         return "tradePage.html";
     }
@@ -88,7 +88,6 @@ public class WebsiteController {
                 }
             }
         });
-        //YahooFinance.get(objectCompany.toString()).getQuote().price
 
         model.addAttribute("portfolio", portfolioList);
         return "portfolioPage.html";
