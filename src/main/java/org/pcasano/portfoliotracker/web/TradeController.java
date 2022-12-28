@@ -14,8 +14,6 @@ import java.util.List;
 @RestController
 public class TradeController {
 
-
-
     private TradeService tradeService;
 
     public TradeController(TradeService tradeService) {

@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 public class DividendController {
 
-
     private DividendService dividendService;
 
     public DividendController(DividendService dividendService) {

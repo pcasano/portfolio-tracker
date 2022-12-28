@@ -27,14 +27,6 @@ public class WebsiteController {
     private DividendService dividendService;
     private TradeService tradeService;
 
-
-/*    @GetMapping("/")
-    public String homepage(Model model, @RequestParam(required = false, defaultValue = "stranger") String username) {
-        model.addAttribute("username", username);
-        model.addAttribute("currentDate", new Date());
-        return "dividends.html";
-    }*/
-
     @GetMapping("/dividends-html")
     public String getDividendPage(Model model) {
         model.addAttribute("mapOfDividends2018", dividendService.getDividends2018());

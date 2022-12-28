@@ -25,8 +25,14 @@
 #chart div
 {
     display: inline-block;
-    border: solid 1px #000;
 }
+
+/*div.horizontalgap {
+  float: left;
+  overflow: hidden;
+  height: 1px;
+  width: 0px;
+}*/
 
 ul {
     background: #b6d6d9;
