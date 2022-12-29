@@ -194,6 +194,7 @@
   <div class="gap-60"></div>
   <table id="dividend_history_table">
     <tr>
+      <th> Nr</th>
       <th> Company</th>
       <th> Brute Amount</th>
       <th> Brute Amount €</th>
@@ -206,6 +207,7 @@
       <th> Rate</th>
     </tr>
     <tr th:each="dividend : ${dividends}">
+      <td th:text="${dividend.divNr}"></td>
       <td th:text="${dividend.companyName}"></td>
       <td th:text="${dividend.amount}"></td>
       <td th:text="${#numbers.formatDecimal((dividend.amount / dividend.rate), 0, 'COMMA', 2, 'POINT')}"></td>

@@ -41,6 +41,9 @@ public class DividendService {
                     throw new RuntimeException(e);
                 }
             })));
+            for(int i=1; i<dividendList.size() + 1; i++) {
+                dividendList.get(i - 1).setDivNr(i);
+            }
             Collections.reverse(dividendList);
             return dividendList;
         }

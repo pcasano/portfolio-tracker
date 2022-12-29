@@ -33,6 +33,9 @@ public class TradeService {
                 throw new RuntimeException(e);
             }
         })));
+        for(int i=1; i<tradeList.size() + 1; i++) {
+            tradeList.get(i - 1).setTradeNr(i);
+        }
         Collections.reverse(tradeList);
         return tradeList;
     }

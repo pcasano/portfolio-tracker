@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.data.annotation.Transient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +35,7 @@ public class Dividend {
     private String activityCode;
     private String month;
     private String year;
+    private transient int divNr;
 
     public Dividend(String paymentDate, String companyName, double amount, double tax, String currency, double rate, String activityCode) throws ParseException {
         this.paymentDate = paymentDate;

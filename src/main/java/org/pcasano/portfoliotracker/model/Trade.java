@@ -33,6 +33,7 @@ public class Trade {
     private double priceOperationBaseCurrency;
     private String month;
     private String year;
+    private transient int tradeNr;
 
     public Trade() {
     }
