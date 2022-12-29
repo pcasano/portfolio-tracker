@@ -60,6 +60,7 @@ public class WebsiteController {
         model.addAttribute("dividends2022", dividendService.findAll().stream().filter(div -> div.getYear().equals("2022")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
         model.addAttribute("dividends2023", dividendService.findAll().stream().filter(div -> div.getYear().equals("2023")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
         model.addAttribute("trades", tradeService.findAll());
+        model.addAttribute("tradeCounter", tradeService.getPortfolioValueMap());
         return "tradePage.html";
     }
 

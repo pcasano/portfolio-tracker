@@ -22,9 +22,13 @@
         ]);
 
         var options = {
-          chart: {
-            title: 'Dividends Evolution',
-          }
+          title: 'Dividends',
+          legend: {position: 'none'},
+          backgroundColor: '#DCDCDC',
+          bar: { groupWidth: "55%" },
+         chartArea:{
+            backgroundColor: '#DCDCDC'
+        }
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_dividends'));
@@ -42,7 +46,8 @@
           <li><a href="http://localhost:8088/portfolio-html">Portfolio</a></li>
           <li><a href="http://localhost:8088/trades-html">Trades</a></li>
           <li><a href="http://localhost:8088/dividends-html">Dividends</a></li>
-          <li><a href="#seccion-5">Forex</a></li>
+          <li><a href="#seccion-5">Currency</a></li>
+          <li><a href="#seccion-5">Trends</a></li>
         </ul>
       </nav>
       <div class="gap-20"></div>

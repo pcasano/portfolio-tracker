@@ -37,6 +37,23 @@ public class TradeService {
         return tradeList;
     }
 
+    public List<List<Object>> getPortfolioValueMap() {
+        List<Trade> listOfTrades = this.findAll();
+        Collections.reverse(listOfTrades);
+        LinkedHashSet<String> dates = new LinkedHashSet<>(listOfTrades.stream().map(Trade::getTradeDate).toList());
+        //LinkedHashMap<String, Double> mapOfPortfolioValue = new LinkedHashMap<>();
+        List<List<Object>> list = new ArrayList<>();
+        double count = 0;
+        for (String date:dates) {
+            count = count + listOfTrades.stream()
+                    .filter(trade -> trade.getTradeDate().equals(date))
+                    .mapToDouble(trade -> trade.getQuantity() * trade.getPriceBaseCurrency()).sum();
+            //mapOfPortfolioValue.put(date, count);
+            list.add(List.of(date, count));
+        }
+        return list;
+    }
+
     public Trade create(String tradeId, String currency, double rate, String symbol, String description, String tradeDate, String commission, Integer quantity, String buySell, double priceOriginalCurrency) throws ParseException {
         return tradeRepository.save(
                 new Trade(
