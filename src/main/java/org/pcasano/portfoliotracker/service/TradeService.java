@@ -11,12 +11,21 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public class TradeService {
 
     @Autowired
     private TradeRepository tradeRepository;
+
+    private List<Trade> trades = new CopyOnWriteArrayList<>();
+    private Map<String, String> trades2018 = new HashMap<>();
+    private Map<String, String> trades2019 = new HashMap<>();
+    private Map<String, String> trades2020 = new HashMap<>();
+    private Map<String, String> trades2021 = new HashMap<>();
+    private Map<String, String> trades2022 = new HashMap<>();
+    private Map<String, String> trades2023 = new HashMap<>();
 
 
     public List<Trade> findAll() {
@@ -33,6 +42,7 @@ public class TradeService {
                 throw new RuntimeException(e);
             }
         })));
+
         for(int i=1; i<tradeList.size() + 1; i++) {
             tradeList.get(i - 1).setTradeNr(i);
         }
@@ -44,20 +54,18 @@ public class TradeService {
         List<Trade> listOfTrades = this.findAll();
         Collections.reverse(listOfTrades);
         LinkedHashSet<String> dates = new LinkedHashSet<>(listOfTrades.stream().map(Trade::getTradeDate).toList());
-        //LinkedHashMap<String, Double> mapOfPortfolioValue = new LinkedHashMap<>();
         List<List<Object>> list = new ArrayList<>();
         double count = 0;
         for (String date:dates) {
             count = count + listOfTrades.stream()
                     .filter(trade -> trade.getTradeDate().equals(date))
                     .mapToDouble(trade -> trade.getQuantity() * trade.getPriceBaseCurrency()).sum();
-            //mapOfPortfolioValue.put(date, count);
             list.add(List.of(date, count));
         }
         return list;
     }
 
-    public Trade create(String tradeId, String currency, double rate, String symbol, String description, String tradeDate, String commission, Integer quantity, String buySell, double priceOriginalCurrency) throws ParseException {
+    public Trade create(String tradeId, String currency, double rate, String symbol, String description, String tradeDate, double commission, Integer quantity, String buySell, double priceOriginalCurrency, String country) throws ParseException {
         return tradeRepository.save(
                 new Trade(
                         tradeId,
@@ -69,7 +77,8 @@ public class TradeService {
                         commission,
                         quantity,
                         buySell,
-                        priceOriginalCurrency
+                        priceOriginalCurrency,
+                        country
                 ));
     }
 
@@ -79,7 +88,7 @@ public class TradeService {
         for (TradeDto tradeDto : listOfTradesDto) {
             listOfTrades.add(
                     new Trade(
-                            tradeDto.getTradeDate(),
+                            tradeDto.getTradeId(),
                             tradeDto.getCurrency(),
                             tradeDto.getRate(),
                             tradeDto.getSymbol(),
@@ -88,12 +97,59 @@ public class TradeService {
                             tradeDto.getCommission(),
                             tradeDto.getQuantity(),
                             tradeDto.getBuySell(),
-                            tradeDto.getPriceOriginalCurrency()
+                            tradeDto.getPriceOriginalCurrency(),
+                            tradeDto.getCountry()
                     ));
         }
         tradeRepository.saveAll(listOfTrades);
         return listOfTrades;
     }
 
+    public Map<String, String> getTrades2018() {
+        this.setMapOfDividendsGivenYear("2018", this.trades2018);
+        return this.trades2018;
+    }
 
+    public Map<String, String> getTrades2019() {
+        this.setMapOfDividendsGivenYear("2019", this.trades2019);
+        return this.trades2019;
+    }
+
+    public Map<String, String> getTrades2020() {
+        this.setMapOfDividendsGivenYear("2020", this.trades2020);
+        return this.trades2020;
+    }
+
+    public Map<String, String> getTrades2021() {
+        this.setMapOfDividendsGivenYear("2021", this.trades2021);
+        return this.trades2021;
+    }
+
+    public Map<String, String> getTrades2022() {
+        this.setMapOfDividendsGivenYear("2022", this.trades2022);
+        return this.trades2022;
+    }
+    public Map<String, String> getTrades2023() {
+        this.setMapOfDividendsGivenYear("2023", this.trades2023);
+        return this.trades2023;
+    }
+
+    private List<Trade> getTradesGivenMonthAndYear(String year, String month) {
+        return this.findAll().stream().filter(div -> div.getYear().equals(year) && div.getMonth().equals(month)).toList();
+    }
+
+    private void setMapOfDividendsGivenYear(String year, Map<String, String> trades) {
+        trades.put("January", Double.toString(this.getTradesGivenMonthAndYear(year, "January").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("February", Double.toString(this.getTradesGivenMonthAndYear(year, "February").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("March", Double.toString(this.getTradesGivenMonthAndYear(year, "March").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("April", Double.toString(this.getTradesGivenMonthAndYear(year, "April").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("May", Double.toString(this.getTradesGivenMonthAndYear(year, "May").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("June", Double.toString(this.getTradesGivenMonthAndYear(year, "June").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("July", Double.toString(this.getTradesGivenMonthAndYear(year, "July").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("August", Double.toString(this.getTradesGivenMonthAndYear(year, "August").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("September", Double.toString(this.getTradesGivenMonthAndYear(year, "September").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("October", Double.toString(this.getTradesGivenMonthAndYear(year, "October").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("November", Double.toString(this.getTradesGivenMonthAndYear(year, "November").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+        trades.put("December", Double.toString(this.getTradesGivenMonthAndYear(year, "December").stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum()));
+    }
 }

@@ -16,12 +16,14 @@ public class TradeDto {
     private String description;
     @JsonProperty("trade_date")
     private String tradeDate;
-    private String commission;
+    private double commission;
     private Integer quantity;
     @JsonProperty("buy_sell")
     private String buySell;
     @JsonProperty("price_original_currency")
     private double priceOriginalCurrency;
+    private String country;
+
 
 }
 

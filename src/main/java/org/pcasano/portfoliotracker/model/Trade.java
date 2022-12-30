@@ -24,7 +24,7 @@ public class Trade {
     private String symbol;
     private String description;
     private String tradeDate;
-    private String commission;
+    private double commission;
     private Integer quantity;
     private String buySell;
     private double priceOriginalCurrency;
@@ -33,12 +33,13 @@ public class Trade {
     private double priceOperationBaseCurrency;
     private String month;
     private String year;
+    private String country;
     private transient int tradeNr;
 
     public Trade() {
     }
 
-    public Trade(String tradeId, String currency, double rate, String symbol, String description, String tradeDate, String commission, Integer quantity, String buySell, double priceOriginalCurrency) throws ParseException {
+    public Trade(String tradeId, String currency, double rate, String symbol, String description, String tradeDate, double commission, Integer quantity, String buySell, double priceOriginalCurrency, String country) throws ParseException {
         this.tradeId = tradeId;
         this.currency = currency;
         this.rate = rate;
@@ -50,11 +51,12 @@ public class Trade {
         this.buySell = buySell;
         this.priceOriginalCurrency = priceOriginalCurrency;
         this.priceBaseCurrency = priceOriginalCurrency * (1 / rate);
-        this.priceOperationOriginalCurrency = priceOriginalCurrency * quantity;
-        this.priceOperationBaseCurrency = this.priceOperationOriginalCurrency * (1 / rate);
+        this.priceOperationOriginalCurrency = priceOriginalCurrency * quantity + commission;
+        this.priceOperationBaseCurrency = this.priceOperationOriginalCurrency / rate;
         Calendar cal = Calendar.getInstance();
         cal.setTime(new SimpleDateFormat("dd.MM.yyyy").parse(this.getTradeDate()));
         this.month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
         this.year = Integer.valueOf(cal.get(Calendar.YEAR)).toString();
+        this.country = country;
     }
 }

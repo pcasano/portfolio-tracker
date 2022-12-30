@@ -6,15 +6,21 @@
     <link th:href="@{/style.css}" rel="stylesheet">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" th:inline="javascript">
-
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
+      var tradeData = /*[[${tradeCounter}]]*/
+
+        console.log(tradeData);
+        var mainData = [];
+        var data2 = ['A', 'B'];
+        mainData.push(data2);
+     for (i = 0; i < tradeData.length; i++) {
+        mainData.push([tradeData[i][0], tradeData[i][1]]);
+     }
+     console.log(mainData);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Trade'],
-          [[${tradeCounter}]]
-        ]);
+        var data = google.visualization.arrayToDataTable(mainData);
 
         var options = {
           title: 'Trades',
@@ -25,10 +31,10 @@
         }
         };
 
-        var chart = new google.charts.Bar(document.getElementById('trade_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('trade_chart'));
 
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
+        chart.draw(data, options);
+        }
     </script>
 </head>
 <body>
@@ -66,120 +72,120 @@
                 </tr>
                 <tr>
                     <td th:text=January></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['January'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['January'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['January'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['January'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['January'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['January'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['January'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['January'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['January'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['January'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['January'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['January'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=February></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['February'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['February'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['February'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['February'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['February'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['February'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['February'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['February'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['February'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['February'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['February'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['February'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=March></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['March'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['March'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['March'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['March'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['March'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['March'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['March'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['March'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['March'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['March'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['March'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['March'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=April></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['April'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['April'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['April'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['April'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['April'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['April'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['April'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['April'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['April'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['April'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['April'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['April'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=May></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['May'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['May'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['May'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['May'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['May'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['May'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['May'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['May'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['May'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['May'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['May'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['May'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=June></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['June'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['June'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['June'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['June'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['June'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['June'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['June'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['June'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['June'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['June'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['June'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['June'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=July></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['July'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['July'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['July'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['July'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['July'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['July'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['July'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['July'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['July'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['July'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['July'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['July'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=August></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['August'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['August'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['August'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['August'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['August'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['August'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['August'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['August'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['August'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['August'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['August'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['August'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=September></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['September'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['September'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['September'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['September'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['September'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['September'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['September'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['September'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['September'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['September'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['September'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['September'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=October></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['October'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['October'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['October'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['October'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['October'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['October'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['October'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['October'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['October'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['October'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['October'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['October'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=November></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['November'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['November'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['November'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['November'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['November'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['November'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['November'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['November'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['November'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['November'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['November'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['November'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr>
                     <td th:text=December></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2018['December'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2019['December'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2020['December'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2021['December'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2022['December'], 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(mapOfDividends2023['December'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2018['December'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2019['December'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2020['December'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2021['December'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2022['December'], 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(mapOfTrades2023['December'], 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
                 <tr class="total_row">
                     <td th:text=TOTAL></td>
-                    <td th:text="${#numbers.formatDecimal(dividends2018, 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(dividends2019, 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(dividends2020, 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(dividends2021, 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(dividends2022, 1, 'COMMA', 2, 'POINT')}"></td>
-                    <td th:text="${#numbers.formatDecimal(dividends2023, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(trades2018, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(trades2019, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(trades2020, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(trades2021, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(trades2022, 1, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(trades2023, 1, 'COMMA', 2, 'POINT')}"></td>
                 </tr>
             </table>
         </div>
@@ -190,7 +196,6 @@
     <table id="trade_history_table">
         <tr>
             <th> Nr</th>
-            <th> Company</th>
             <th> Symbol</th>
             <th> Quantity</th>
             <th> Price Original</th>
@@ -202,11 +207,11 @@
             <th> Month</th>
             <th> Year</th>
             <th> Currency</th>
+            <th> Buy/Sell</th>
         </tr>
 
         <tr th:each="trade : ${trades}">
             <td th:text="${trade.tradeNr}"></td>
-            <td th:text="${trade.description}"></td>
             <td th:text="${trade.symbol}"></td>
             <td th:text="${trade.quantity}"></td>
             <td th:text="${trade.priceOriginalCurrency}"></td>
@@ -218,6 +223,7 @@
             <td th:text="${trade.month}"></td>
             <td th:text="${trade.year}"></td>
             <td th:text="${trade.currency}"></td>
+            <td th:text="${trade.buySell}"></td>
         </tr>
     </table>
     <div class="gap-60"></div>

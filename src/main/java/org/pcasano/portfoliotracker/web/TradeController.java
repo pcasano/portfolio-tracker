@@ -38,7 +38,8 @@ public class TradeController {
                 tradeDto.getCommission(),
                 tradeDto.getQuantity(),
                 tradeDto.getBuySell(),
-                tradeDto.getPriceOriginalCurrency()
+                tradeDto.getPriceOriginalCurrency(),
+                tradeDto.getCountry()
         );
     }
 

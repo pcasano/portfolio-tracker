@@ -47,18 +47,18 @@ public class WebsiteController {
 
     @GetMapping("/trades-html")
     public String getTradePage(Model model) {
-        model.addAttribute("mapOfDividends2018", dividendService.getDividends2018());
-        model.addAttribute("mapOfDividends2019", dividendService.getDividends2019());
-        model.addAttribute("mapOfDividends2020", dividendService.getDividends2020());
-        model.addAttribute("mapOfDividends2021", dividendService.getDividends2021());
-        model.addAttribute("mapOfDividends2022", dividendService.getDividends2022());
-        model.addAttribute("mapOfDividends2023", dividendService.getDividends2023());
-        model.addAttribute("dividends2018", dividendService.findAll().stream().filter(div -> div.getYear().equals("2018")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
-        model.addAttribute("dividends2019", dividendService.findAll().stream().filter(div -> div.getYear().equals("2019")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
-        model.addAttribute("dividends2020", dividendService.findAll().stream().filter(div -> div.getYear().equals("2020")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
-        model.addAttribute("dividends2021", dividendService.findAll().stream().filter(div -> div.getYear().equals("2021")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
-        model.addAttribute("dividends2022", dividendService.findAll().stream().filter(div -> div.getYear().equals("2022")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
-        model.addAttribute("dividends2023", dividendService.findAll().stream().filter(div -> div.getYear().equals("2023")).mapToDouble(div -> div.getAmount() / div.getRate()).sum());
+        model.addAttribute("mapOfTrades2018", tradeService.getTrades2018());
+        model.addAttribute("mapOfTrades2019", tradeService.getTrades2019());
+        model.addAttribute("mapOfTrades2020", tradeService.getTrades2020());
+        model.addAttribute("mapOfTrades2021", tradeService.getTrades2021());
+        model.addAttribute("mapOfTrades2022", tradeService.getTrades2022());
+        model.addAttribute("mapOfTrades2023", tradeService.getTrades2023());
+        model.addAttribute("trades2018", tradeService.findAll().stream().filter(trade -> trade.getYear().equals("2018")).mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
+        model.addAttribute("trades2019", tradeService.findAll().stream().filter(trade -> trade.getYear().equals("2019")).mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
+        model.addAttribute("trades2020", tradeService.findAll().stream().filter(trade -> trade.getYear().equals("2020")).mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
+        model.addAttribute("trades2021", tradeService.findAll().stream().filter(trade -> trade.getYear().equals("2021")).mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
+        model.addAttribute("trades2022", tradeService.findAll().stream().filter(trade -> trade.getYear().equals("2022")).mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
+        model.addAttribute("trades2023", tradeService.findAll().stream().filter(trade -> trade.getYear().equals("2023")).mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
         model.addAttribute("trades", tradeService.findAll());
         model.addAttribute("tradeCounter", tradeService.getPortfolioValueMap());
         return "tradePage.html";
