@@ -3,6 +3,7 @@ package org.pcasano.portfoliotracker.web;
 import org.pcasano.portfoliotracker.model.Dividend;
 import org.pcasano.portfoliotracker.model.Portfolio;
 import org.pcasano.portfoliotracker.model.Trade;
+import org.pcasano.portfoliotracker.service.CompanyService;
 import org.pcasano.portfoliotracker.service.DividendService;
 import org.pcasano.portfoliotracker.service.TradeService;
 import org.springframework.stereotype.Controller;
@@ -19,13 +20,16 @@ import java.util.stream.Stream;
 @Controller
 public class WebsiteController {
 
-    public WebsiteController(DividendService dividendService, TradeService tradeService) {
+    public WebsiteController(DividendService dividendService, TradeService tradeService, CompanyService companyService) {
         this.dividendService = dividendService;
         this.tradeService = tradeService;
+        this.companyService = companyService;
+
     }
 
     private DividendService dividendService;
     private TradeService tradeService;
+    private CompanyService companyService;
 
     @GetMapping("/dividends-html")
     public String getDividendPage(Model model) {
@@ -65,32 +69,73 @@ public class WebsiteController {
     }
 
     @GetMapping("/portfolio-html")
-    public String getPortfolioPage(Model model) {
+    public String getPortfolioPage(Model model) throws IOException {
         List<Portfolio> portfolioList = new ArrayList<>();
         List<Trade> tradeList = tradeService.findAll();
         Set<String> setOfSymbols = new HashSet<>(tradeList.stream().map(Trade::getSymbol).toList());
+        double eurUsdRatio = YahooFinance.get("EURUSD=X").getQuote().getPrice().doubleValue();
+        double eurGbpRatio = YahooFinance.get("EURGBP=X").getQuote().getPrice().doubleValue();
+
         setOfSymbols.forEach(symbol -> {
             int quantity = tradeList.stream().filter(trade -> trade.getSymbol().equals(symbol)).mapToInt(Trade::getQuantity).sum();
             if (quantity > 0) {
                 List<Trade> filteredTradeList = tradeList.stream().filter(trade -> trade.getSymbol().equals(symbol)).toList();
                 try {
+                    String currency = filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A");
+                    double marketPriceOriginalCurrency = getCurrentPriceOriginalCurrency(currency, symbol);
+                    double openPriceOriginalCurrency = filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum() / quantity;
                     portfolioList.add(new Portfolio(
                             filteredTradeList.stream().map(Trade::getDescription).findFirst().orElse("N/A"),
                             symbol,
                             quantity,
-                            filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum() / quantity,
+                            openPriceOriginalCurrency,
                             filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum(),
-                            filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency() * trade.getRate()).sum(),
-                            YahooFinance.get(symbol).getQuote().getPrice().doubleValue(),
-                            filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A")
+                            filteredTradeList
+                                    .stream().
+                                    mapToDouble(trade -> trade.getQuantity() * marketPriceOriginalCurrency / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)).sum(),
+                            marketPriceOriginalCurrency,
+                            currency,
+                            quantity * (marketPriceOriginalCurrency - openPriceOriginalCurrency) / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)
                     ));
-                } catch (IOException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         });
-
+        portfolioList.sort(Comparator.comparing(Portfolio::getCompanyName));
+        for(int i=1; i<portfolioList.size() + 1; i++) {
+            portfolioList.get(i - 1).setNr(i);
+        }
         model.addAttribute("portfolio", portfolioList);
+        model.addAttribute("openValueOnlyEurPositions", portfolioList.stream().filter(por -> por.getCurrency().equals("EUR")).mapToDouble(Portfolio::getOpenValueOriginalCurrency).sum());
+        model.addAttribute("openValueOnlyUsdPositions", portfolioList.stream().filter(por -> por.getCurrency().equals("USD")).mapToDouble(Portfolio::getOpenValueOriginalCurrency).sum());
+        model.addAttribute("openValueOnlyGbpPositions", portfolioList.stream().filter(por -> por.getCurrency().equals("GBP")).mapToDouble(Portfolio::getOpenValueOriginalCurrency).sum());
+        model.addAttribute("openValueEurAllPositions", tradeList.stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
+        model.addAttribute("marketValueEurAllPositions", portfolioList.stream().mapToDouble(Portfolio::getMarketValueBaseCurrency).sum());
         return "portfolioPage.html";
+    }
+
+    private String getYahooSymbol(String symbol) {
+        return companyService.findAll().stream().filter(company -> company.getSymbol().equals(symbol)).findFirst().get().getYahooSymbol();
+    }
+
+    private double getCurrentPriceOriginalCurrency(String currency, String symbol) throws IOException {
+        double price = YahooFinance.get(getYahooSymbol(symbol)).getQuote().getPrice().doubleValue();
+        return currency.equals("GBP") ? price/100 : price;
+    }
+
+    private double getCurrentRatio(String currency, double eurUsd, double eurGbp) {
+        if(currency.equals("EUR")){
+            return 1.0;
+        }
+        else if(currency.equals("USD")) {
+            return eurUsd;
+        }
+        else if(currency.equals("GBP")) {
+            return eurGbp;
+        }
+        else {
+            throw new IllegalArgumentException("Currency not supported: " + currency);
+        }
     }
 }

@@ -10,20 +10,25 @@ public class Portfolio {
     private String companyName;
     private String symbol;
     private Integer quantity;
-    private double priceOriginalCurrency;
-    private double valueOriginalCurrency;
-    private double valueBaseCurrency;
+    private double openPriceOriginalCurrency;
+    private double marketPriceOriginalCurrency;
+    private double openValueOriginalCurrency;
+    private double marketValueBaseCurrency;
     private String currency;
-    private double currentPriceOriginalCurrency;
 
-    public Portfolio(String companyName, String symbol, Integer quantity, double priceOriginalCurrency, double valueOriginalCurrency, double valueBaseCurrency, double currentPriceOriginalCurrency, String currency) {
+    private double diffValueBaseCurrency;
+
+    private Integer nr;
+
+    public Portfolio(String companyName, String symbol, Integer quantity, double openPriceOriginalCurrency, double openValueOriginalCurrency, double marketValueBaseCurrency, double marketPriceOriginalCurrency, String currency, double diffValueBaseCurrency) {
         this.companyName = companyName;
         this.symbol = symbol;
         this.quantity = quantity;
-        this.priceOriginalCurrency = priceOriginalCurrency;
-        this.valueOriginalCurrency = valueOriginalCurrency;
-        this.valueBaseCurrency = valueBaseCurrency;
+        this.openPriceOriginalCurrency = openPriceOriginalCurrency;
+        this.openValueOriginalCurrency = openValueOriginalCurrency;
+        this.marketValueBaseCurrency = marketValueBaseCurrency;
         this.currency = currency;
-        this.currentPriceOriginalCurrency = currentPriceOriginalCurrency;
+        this.marketPriceOriginalCurrency = marketPriceOriginalCurrency;
+        this.diffValueBaseCurrency = diffValueBaseCurrency;
     }
 }

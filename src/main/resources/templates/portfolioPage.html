@@ -28,34 +28,34 @@
 
   <table id="portfolio_table">
     <tr>
+      <th> Nr</th>
       <th> Company Name</th>
       <th> Symbol</th>
       <th> Quantity</th>
-      <th> Open Price</th>
-      <th> Market Price</th>
+      <th> O.Price</th>
+      <th> M.Price</th>
       <th> Dif %</th>
-      <th> Open Value $€</th>
-      <th> Market Value $€</th>
-      <th> Dif Value</th>
-      <th> Value €</th>
-      <th> Currency</th>
+      <th> O.Value $£€</th>
+      <th> M.Value $£€</th>
+      <th> Dif Value €</th>
+      <th> M.Value €</th>
     </tr>
     <tr th:each="item : ${portfolio}">
+      <td th:text="${item.nr}"></td>
       <td th:text="${item.companyName}"></td>
       <td th:text="${item.symbol}"></td>
       <td th:text="${item.quantity}"></td>
-      <td th:text="${#numbers.formatDecimal((item.priceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
-      <td th:text="${item.currentPriceOriginalCurrency}"></td>
-      <td th:text="${#numbers.formatDecimal((100 * (item.currentPriceOriginalCurrency - item.priceOriginalCurrency) / item.priceOriginalCurrency), 0, 2, 'POINT')}"></td>
-      <td th:text="${item.valueOriginalCurrency}"></td>
-      <td th:text="${item.currentPriceOriginalCurrency * item.quantity}"></td>
-      <td th:text="${#numbers.formatDecimal(((item.currentPriceOriginalCurrency * item.quantity) - item.valueOriginalCurrency), 0, 2, 'POINT')}"></td>
-      <td th:text="${#numbers.formatDecimal((item.valueBaseCurrency), 0, 'COMMA', 2, 'POINT')}"></td>
-      <td th:text="${item.currency}"></td>
+      <td th:text="${#numbers.formatDecimal((item.openPriceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+      <td th:text="${item.marketPriceOriginalCurrency + ' ' + item.currency}"></td>
+      <td th:text="${#numbers.formatDecimal((100 * (item.marketPriceOriginalCurrency - item.openPriceOriginalCurrency) / item.openPriceOriginalCurrency), 0, 2, 'POINT') + ' %'}"></td>
+      <td th:text="${#numbers.formatDecimal((item.openValueOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+      <td th:text="${#numbers.formatDecimal((item.marketPriceOriginalCurrency * item.quantity), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+      <td th:text="${#numbers.formatDecimal((item.diffValueBaseCurrency), 0, 2, 'POINT') + ' €'}"></td>
+      <td th:text="${#numbers.formatDecimal((item.marketValueBaseCurrency), 0, 'COMMA', 2, 'POINT') + ' €'}"></td>
     </tr>
   </table>
   <div class="gap-60"></div>
-  <div class="gap-40"></div>
+  <div class="gap-40"></div>diffValueBaseCurrency
 </div>
 
 
