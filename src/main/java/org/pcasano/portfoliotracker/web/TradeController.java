@@ -1,10 +1,7 @@
 package org.pcasano.portfoliotracker.web;
 
-import org.pcasano.portfoliotracker.dto.DividendDto;
 import org.pcasano.portfoliotracker.dto.TradeDto;
-import org.pcasano.portfoliotracker.model.Dividend;
 import org.pcasano.portfoliotracker.model.Trade;
-import org.pcasano.portfoliotracker.service.DividendService;
 import org.pcasano.portfoliotracker.service.TradeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +32,7 @@ public class TradeController {
                 tradeDto.getSymbol(),
                 tradeDto.getDescription(),
                 tradeDto.getTradeDate(),
-                tradeDto.getCommission(),
+                tradeDto.getFee(),
                 tradeDto.getQuantity(),
                 tradeDto.getBuySell(),
                 tradeDto.getPriceOriginalCurrency(),

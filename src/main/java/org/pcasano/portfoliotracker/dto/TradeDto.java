@@ -16,7 +16,7 @@ public class TradeDto {
     private String description;
     @JsonProperty("trade_date")
     private String tradeDate;
-    private double commission;
+    private double fee;
     private Integer quantity;
     @JsonProperty("buy_sell")
     private String buySell;

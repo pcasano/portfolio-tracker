@@ -24,7 +24,7 @@ public class Trade {
     private String symbol;
     private String description;
     private String tradeDate;
-    private double commission;
+    private double fee;
     private Integer quantity;
     private String buySell;
     private double priceOriginalCurrency;
@@ -39,19 +39,19 @@ public class Trade {
     public Trade() {
     }
 
-    public Trade(String tradeId, String currency, double rate, String symbol, String description, String tradeDate, double commission, Integer quantity, String buySell, double priceOriginalCurrency, String country) throws ParseException {
+    public Trade(String tradeId, String currency, double rate, String symbol, String description, String tradeDate, double fee, Integer quantity, String buySell, double priceOriginalCurrency, String country) throws ParseException {
         this.tradeId = tradeId;
         this.currency = currency;
         this.rate = rate;
         this.symbol = symbol;
         this.description = description;
         this.tradeDate = tradeDate;
-        this.commission = commission;
+        this.fee = fee;
         this.quantity = quantity;
         this.buySell = buySell;
         this.priceOriginalCurrency = priceOriginalCurrency;
         this.priceBaseCurrency = priceOriginalCurrency * (1 / rate);
-        this.priceOperationOriginalCurrency = priceOriginalCurrency * quantity + commission;
+        this.priceOperationOriginalCurrency = priceOriginalCurrency * quantity + fee;
         this.priceOperationBaseCurrency = this.priceOperationOriginalCurrency / rate;
         Calendar cal = Calendar.getInstance();
         cal.setTime(new SimpleDateFormat("dd.MM.yyyy").parse(this.getTradeDate()));
