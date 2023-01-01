@@ -135,8 +135,8 @@ public class WebsiteController {
     }
 
     private double getCurrentPriceOriginalCurrency(String currency, String symbol) throws IOException {
-        double price = YahooFinance.get(getYahooSymbol(symbol)).getQuote().getPrice().doubleValue();
-        //double price = 22.7;
+        //double price = YahooFinance.get(getYahooSymbol(symbol)).getQuote().getPrice().doubleValue();
+        double price = 22.7;
         return currency.equals("GBP") ? price/100 : price;
     }
 
