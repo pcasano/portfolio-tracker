@@ -72,6 +72,7 @@ public class WebsiteController {
     public String getPortfolioPage(Model model) throws IOException {
         List<Portfolio> portfolioList = new ArrayList<>();
         List<Trade> tradeList = tradeService.findAll();
+        List<List<Object>> listOfMarketValuePositionsBaseCurrency = new ArrayList<>();
         Set<String> setOfSymbols = new HashSet<>(tradeList.stream().map(Trade::getSymbol).toList());
         double eurUsdRatio = YahooFinance.get("EURUSD=X").getQuote().getPrice().doubleValue();
         double eurGbpRatio = YahooFinance.get("EURGBP=X").getQuote().getPrice().doubleValue();
@@ -84,15 +85,17 @@ public class WebsiteController {
                     String currency = filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A");
                     double marketPriceOriginalCurrency = getCurrentPriceOriginalCurrency(currency, symbol);
                     double openPriceOriginalCurrency = filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum() / quantity;
+                    double marketValueBaseCurrency = filteredTradeList
+                            .stream().
+                            mapToDouble(trade -> trade.getQuantity() * marketPriceOriginalCurrency / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)).sum();
+                    listOfMarketValuePositionsBaseCurrency.add(List.of(symbol, marketValueBaseCurrency));
                     portfolioList.add(new Portfolio(
                             filteredTradeList.stream().map(Trade::getDescription).findFirst().orElse("N/A"),
                             symbol,
                             quantity,
                             openPriceOriginalCurrency,
                             filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum(),
-                            filteredTradeList
-                                    .stream().
-                                    mapToDouble(trade -> trade.getQuantity() * marketPriceOriginalCurrency / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)).sum(),
+                            marketValueBaseCurrency,
                             marketPriceOriginalCurrency,
                             currency,
                             quantity * (marketPriceOriginalCurrency - openPriceOriginalCurrency) / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)
@@ -106,12 +109,24 @@ public class WebsiteController {
         for(int i=1; i<portfolioList.size() + 1; i++) {
             portfolioList.get(i - 1).setNr(i);
         }
+
+        double marketValueEurAllPositions = portfolioList.stream().mapToDouble(Portfolio::getMarketValueBaseCurrency).sum();
+        List<List<Object>> listOfMarketValuePositionsBaseCurrencyProcent = new ArrayList<>();
+        for(List<Object> listValues:listOfMarketValuePositionsBaseCurrency) {
+            listOfMarketValuePositionsBaseCurrencyProcent.add(List.of(listValues.get(0), 100 * (Double) listValues.get(1) / marketValueEurAllPositions));
+        }
+        listOfMarketValuePositionsBaseCurrencyProcent.sort(Comparator.comparingDouble(value -> (Double) value.get(1)));
+        Collections.reverse(listOfMarketValuePositionsBaseCurrencyProcent);
+
+
         model.addAttribute("portfolio", portfolioList);
         model.addAttribute("openValueOnlyEurPositions", portfolioList.stream().filter(por -> por.getCurrency().equals("EUR")).mapToDouble(Portfolio::getOpenValueOriginalCurrency).sum());
         model.addAttribute("openValueOnlyUsdPositions", portfolioList.stream().filter(por -> por.getCurrency().equals("USD")).mapToDouble(Portfolio::getOpenValueOriginalCurrency).sum());
         model.addAttribute("openValueOnlyGbpPositions", portfolioList.stream().filter(por -> por.getCurrency().equals("GBP")).mapToDouble(Portfolio::getOpenValueOriginalCurrency).sum());
         model.addAttribute("openValueEurAllPositions", tradeList.stream().mapToDouble(Trade::getPriceOperationBaseCurrency).sum());
-        model.addAttribute("marketValueEurAllPositions", portfolioList.stream().mapToDouble(Portfolio::getMarketValueBaseCurrency).sum());
+        model.addAttribute("marketValueEurAllPositions", marketValueEurAllPositions);
+        model.addAttribute("listOfMarketValuePositionsBaseCurrency", listOfMarketValuePositionsBaseCurrency);
+        model.addAttribute("listOfMarketValuePositionsBaseCurrencyProcent", listOfMarketValuePositionsBaseCurrencyProcent);
         return "portfolioPage.html";
     }
 
@@ -121,6 +136,7 @@ public class WebsiteController {
 
     private double getCurrentPriceOriginalCurrency(String currency, String symbol) throws IOException {
         double price = YahooFinance.get(getYahooSymbol(symbol)).getQuote().getPrice().doubleValue();
+        //double price = 22.7;
         return currency.equals("GBP") ? price/100 : price;
     }
 

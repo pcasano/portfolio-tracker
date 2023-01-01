@@ -4,6 +4,66 @@
   <meta charset="UTF-8">
   <title>Portfolio</title>
   <link th:href="@{/style.css}" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" th:inline="javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart_);
+
+      // ----------------Data for Pie Chart----------------
+      var tradeDataPieChart = /*[[${listOfMarketValuePositionsBaseCurrency}]]*/
+        var mainDataPieChart = [];
+        var headerDataPieChart = ['A', 'B'];
+        mainDataPieChart.push(headerDataPieChart);
+     for (i = 0; i < tradeDataPieChart.length; i++) {
+        mainDataPieChart.push([tradeDataPieChart[i][0], tradeDataPieChart[i][1]]);
+     }
+
+    // ----------------Data for Bar Chart----------------
+     var tradeDataBarChart = /*[[${listOfMarketValuePositionsBaseCurrencyProcent}]]*/
+        var mainDataBarChart = [];
+        var headerDataBarChart = ['Symbol', 'B'];
+        mainDataBarChart.push(headerDataBarChart);
+     for (i = 0; i < tradeDataBarChart.length; i++) {
+        mainDataBarChart.push([tradeDataBarChart[i][0], tradeDataBarChart[i][1]]);
+     }
+
+      // ---------------Draw Pie Chart----------------
+
+      function drawChart() {
+        var dataPieChart = google.visualization.arrayToDataTable(mainDataPieChart);
+        var optionsPieChart = {
+          legend: {position: 'none'},
+          backgroundColor: '#DCDCDC',
+         chartArea:{
+            width: 400,
+            height: 400,
+            backgroundColor: '#DCDCDC'
+        }
+        };
+
+        var pieChart = new google.visualization.PieChart(document.getElementById('portfolio_pie_chart'));
+        pieChart.draw(dataPieChart, optionsPieChart);
+        }
+
+      // ---------------Draw Bar Chart----------------
+      function drawChart_() {
+        var dataBarChart = google.visualization.arrayToDataTable(mainDataBarChart);
+        var optionsBarChart = {
+          backgroundColor: '#DCDCDC',
+          legend: {position: 'none'},
+        hAxis: { slantedText:true, slantedTextAngle:45 },
+         chartArea:{
+            width: 400,
+            height: 600,
+            backgroundColor: '#DCDCDC'
+        }
+        };
+
+        var barChart = new google.visualization.BarChart(document.getElementById('portfolio_bar_chart'));
+        barChart.draw(dataBarChart, optionsBarChart);
+        }
+    </script>
 </head>
 <body>
 <div class="main">
@@ -32,43 +92,57 @@
       <th> W/L</th>
       <th> W/L %</th>
     </tr>
-    <tr>
-      <td th:text="${#numbers.formatDecimal(marketValueEurAllPositions, 0, 'COMMA', 2, 'POINT')}"></td>
-      <td th:text="${#numbers.formatDecimal(openValueEurAllPositions, 0, 'COMMA', 2, 'POINT')}"></td>
-      <td th:text="${#numbers.formatDecimal((marketValueEurAllPositions - openValueEurAllPositions), 0, 'COMMA', 2, 'POINT')}"></td>
-      <td th:text="${#numbers.formatDecimal((100 * (marketValueEurAllPositions - openValueEurAllPositions) / openValueEurAllPositions), 0, 2, 'POINT') + ' %'}"></td>
-    </tr>
+    <div>
+      <tr>
+        <td th:text="${#numbers.formatDecimal(marketValueEurAllPositions, 0, 'COMMA', 2, 'POINT')}"></td>
+        <td th:text="${#numbers.formatDecimal(openValueEurAllPositions, 0, 'COMMA', 2, 'POINT')}"></td>
+        <td th:text="${#numbers.formatDecimal((marketValueEurAllPositions - openValueEurAllPositions), 0, 'COMMA', 2, 'POINT')}"></td>
+        <td th:text="${#numbers.formatDecimal((100 * (marketValueEurAllPositions - openValueEurAllPositions) / openValueEurAllPositions), 0, 2, 'POINT') + ' %'}"></td>
+      </tr>
+    </div>
+
   </table>
-  <table id="portfolio_table">
-    <tr>
-      <th> Nr</th>
-      <th> Company Name</th>
-      <th> Symbol</th>
-      <th> Quantity</th>
-      <th> O.Price</th>
-      <th> M.Price</th>
-      <th> Dif %</th>
-      <th> O.Value $£€</th>
-      <th> M.Value $£€</th>
-      <th> Dif Value €</th>
-      <th> M.Value €</th>
-    </tr>
-    <tr th:each="item : ${portfolio}">
-      <td th:text="${item.nr}"></td>
-      <td th:text="${item.companyName}"></td>
-      <td th:text="${item.symbol}"></td>
-      <td th:text="${item.quantity}"></td>
-      <td th:text="${#numbers.formatDecimal((item.openPriceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
-      <td th:text="${item.marketPriceOriginalCurrency + ' ' + item.currency}"></td>
-      <td th:text="${#numbers.formatDecimal((100 * (item.marketPriceOriginalCurrency - item.openPriceOriginalCurrency) / item.openPriceOriginalCurrency), 0, 2, 'POINT') + ' %'}"></td>
-      <td th:text="${#numbers.formatDecimal((item.openValueOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
-      <td th:text="${#numbers.formatDecimal((item.marketPriceOriginalCurrency * item.quantity), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
-      <td th:text="${#numbers.formatDecimal((item.diffValueBaseCurrency), 0, 2, 'POINT') + ' €'}"></td>
-      <td th:text="${#numbers.formatDecimal((item.marketValueBaseCurrency), 0, 'COMMA', 2, 'POINT') + ' €'}"></td>
-    </tr>
-  </table>
+
+  <div id="pie_portfolio_chart">
+    <div class="gap-20-no-color"></div>
+    <div><table id="portfolio_table">
+        <tr>
+          <th> Nr</th>
+          <th> Company Name</th>
+          <th> Symbol</th>
+          <th> Quantity</th>
+          <th> O.Price</th>
+          <th> M.Price</th>
+          <th> Dif %</th>
+          <th> O.Value $£€</th>
+          <th> M.Value $£€</th>
+          <th> Dif Value €</th>
+          <th> M.Value €</th>
+        </tr>
+        <tr th:each="item : ${portfolio}">
+          <td th:text="${item.nr}"></td>
+          <td th:text="${item.companyName}"></td>
+          <td th:text="${item.symbol}"></td>
+          <td th:text="${item.quantity}"></td>
+          <td th:text="${#numbers.formatDecimal((item.openPriceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+          <td th:text="${#numbers.formatDecimal((item.marketPriceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+          <td th:text="${#numbers.formatDecimal((100 * (item.marketPriceOriginalCurrency - item.openPriceOriginalCurrency) / item.openPriceOriginalCurrency), 0, 2, 'POINT') + ' %'}"></td>
+          <td th:text="${#numbers.formatDecimal((item.openValueOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+          <td th:text="${#numbers.formatDecimal((item.marketPriceOriginalCurrency * item.quantity), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+          <td th:text="${#numbers.formatDecimal((item.diffValueBaseCurrency), 0, 2, 'POINT') + ' €'}"></td>
+          <td th:text="${#numbers.formatDecimal((item.marketValueBaseCurrency), 0, 'COMMA', 2, 'POINT') + ' €'}"></td>
+        </tr>
+      </table></div>
+    <div style="width:60px; border: none;"></div>
+    <div style="width: 400px; height: 400px; vertical-align: top;">
+      <div id="portfolio_pie_chart" style="width: 400px; height: 400px;"></div>
+      <div class="gap-40"></div>
+      <div class="gap-30"></div>
+      <div id="portfolio_bar_chart" style="width: 500px; height: 600px;"></div>
+    </div>
+  </div>
   <div class="gap-60"></div>
-  <div class="gap-40"></div>diffValueBaseCurrency
+  <div class="gap-40"></div>
 </div>
 
 
