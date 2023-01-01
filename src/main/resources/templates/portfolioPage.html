@@ -25,7 +25,20 @@
 <div class="content">
   <div class="gap-60"></div>
   <div class="gap-40"></div>
-
+  <table id="portfolio_summary">
+    <tr>
+      <th> Portfolio Value</th>
+      <th> Money Invested</th>
+      <th> W/L</th>
+      <th> W/L %</th>
+    </tr>
+    <tr>
+      <td th:text="${#numbers.formatDecimal(marketValueEurAllPositions, 0, 'COMMA', 2, 'POINT')}"></td>
+      <td th:text="${#numbers.formatDecimal(openValueEurAllPositions, 0, 'COMMA', 2, 'POINT')}"></td>
+      <td th:text="${#numbers.formatDecimal((marketValueEurAllPositions - openValueEurAllPositions), 0, 'COMMA', 2, 'POINT')}"></td>
+      <td th:text="${#numbers.formatDecimal((100 * (marketValueEurAllPositions - openValueEurAllPositions) / openValueEurAllPositions), 0, 2, 'POINT') + ' %'}"></td>
+    </tr>
+  </table>
   <table id="portfolio_table">
     <tr>
       <th> Nr</th>
