@@ -19,6 +19,8 @@ public class Portfolio {
     private double diffValueBaseCurrency;
 
     private Integer nr;
+    private String country;
+    private double marketPriceBaseCurrency;
 
     public Portfolio(String companyName, String symbol, Integer quantity, double openPriceOriginalCurrency, double openValueOriginalCurrency, double marketValueBaseCurrency, double marketPriceOriginalCurrency, String currency, double diffValueBaseCurrency) {
         this.companyName = companyName;
@@ -30,5 +32,13 @@ public class Portfolio {
         this.currency = currency;
         this.marketPriceOriginalCurrency = marketPriceOriginalCurrency;
         this.diffValueBaseCurrency = diffValueBaseCurrency;
+    }
+
+    public Portfolio(String symbol, String country, String currency, int quantity, double marketPriceBaseCurrency) {
+        this.symbol = symbol;
+        this.country = country;
+        this.quantity = quantity;
+        this.currency = currency;
+        this.marketPriceBaseCurrency = marketPriceBaseCurrency;
     }
 }
