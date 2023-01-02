@@ -7,26 +7,65 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" th:inline="javascript">
       google.charts.load('current', {
-        'packages':['geochart'],
+        'packages':['geochart', 'corechart'],
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
 
-      var countryData = /*[[${listOfCountries}]]*/
+      google.charts.setOnLoadCallback(drawChart);
 
-        var mainData = [];
-        var data2 = ['A', 'B'];
-        mainData.push(data2);
+      // ---------- load countries data -------------
+      var countryData = /*[[${listOfCountries}]]*/
+        var mainCountryData = [];
+        var data2 = ['Country', 'Value'];
+        mainCountryData.push(data2);
      for (i = 0; i < countryData.length; i++) {
-        mainData.push([countryData[i][0], countryData[i][1]]);
+        mainCountryData.push([countryData[i][0], countryData[i][1]]);
      }
 
+        // ---------------- draw geo chart -----------------
       function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable(mainData);
-        var options = {};
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        var finalCountryData = google.visualization.arrayToDataTable(mainCountryData);
+        var countryOptions = {
+        colors: ['#C5E8B7','#2EB62C'],
+          backgroundColor: '#DCDCDC',
+         chartArea:{
+            backgroundColor: '#DCDCDC'
+        }
+        };
+        var countryChart = new google.visualization.GeoChart(document.getElementById('country_chart'));
 
-        chart.draw(data, options);
+        countryChart.draw(finalCountryData, countryOptions);
       }
+
+
+
+      // ---------- load currency data -------------
+      var currencyData = /*[[${listOfCurrencies}]]*/
+        var mainCurrencyData = [];
+        var currencyHeaderData = ['Currency', 'Value'];
+        mainCurrencyData.push(currencyHeaderData);
+     for (i = 0; i < currencyData.length; i++) {
+        mainCurrencyData.push([currencyData[i][0], currencyData[i][1]]);
+     }
+
+
+      // ---------------- draw pie  chart -----------------
+      function drawChart() {
+        var finalCurrencyData = google.visualization.arrayToDataTable(mainCurrencyData);
+
+        var currencyOptions = {
+          is3D: true,
+          backgroundColor: '#DCDCDC',
+         chartArea:{
+            backgroundColor: '#DCDCDC'
+        }
+        };
+
+        var currencyChart = new google.visualization.PieChart(document.getElementById('currency_chart'));
+
+        currencyChart.draw(finalCurrencyData, currencyOptions);
+        }
+
     </script>
 </head>
 <body>
@@ -54,6 +93,7 @@
     <div id="chart">
 
         <div style="width:180px; border: none;"></div>
+        <div id="country_chart" style="width: 700px; height: 450px;"></div>
         <div id="currency_chart" style="width: 700px; height: 450px;"></div>
     </div>
     <div class="gap-60"></div>

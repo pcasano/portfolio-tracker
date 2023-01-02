@@ -93,8 +93,8 @@ public class WebsiteController {
                         getCurrentPriceOriginalCurrency(currency, symbol).getPrice().doubleValue() / 100 : getCurrentPriceOriginalCurrency(currency, symbol).getPrice().doubleValue();
                 listOfPortfolio.add(new Portfolio(
                         symbol,
-                        currency,
                         country,
+                        currency,
                         quantity,
                         marketPriceOriginalCurrency / this.getCurrentRatio(currency, getEurUsdRatio(), getEurGbpRatio())
                 ));
@@ -108,14 +108,17 @@ public class WebsiteController {
                             listOfPortfolio.stream().filter(portfolio -> portfolio.getCountry().equals(country)).mapToDouble(portfolio -> portfolio.getQuantity() * portfolio.getMarketPriceBaseCurrency()).sum())
             );
         });
-        Map<String, Double> mapOfCurrenciesPositions = new HashMap<>();
+        List<List<Object>> listOfCurrencies = new ArrayList<>();
+        double portfolioMarketValueBaseCurrency = listOfPortfolio.stream().mapToDouble(portfolio -> portfolio.getQuantity() * portfolio.getMarketPriceBaseCurrency()).sum();
         setOfCurrencies.forEach(currency -> {
-            mapOfCurrenciesPositions.put(
-                    currency, listOfPortfolio.stream().filter(portfolio -> portfolio.getCurrency().equals(currency)).mapToDouble(Portfolio::getMarketPriceOriginalCurrency).sum()
+            double marketValueBaseCurrencyGivenCurrency = listOfPortfolio.stream().filter(portfolio -> portfolio.getCurrency().equals(currency)).mapToDouble(portfolio -> portfolio.getQuantity() * portfolio.getMarketPriceBaseCurrency()).sum();
+            listOfCurrencies.add(
+                    List.of(currency,
+                            100 * (1 - (portfolioMarketValueBaseCurrency- marketValueBaseCurrencyGivenCurrency) / portfolioMarketValueBaseCurrency))
             );
         });
         model.addAttribute("listOfCountries", listOfCountries);
-        model.addAttribute("mapOfCurrencies", mapOfCurrenciesPositions);
+        model.addAttribute("listOfCurrencies", listOfCurrencies);
             return "currencyPage.html";
     }
 
