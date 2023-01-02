@@ -57,6 +57,8 @@
           is3D: true,
           backgroundColor: '#DCDCDC',
          chartArea:{
+            width: 400,
+            height: 400,
             backgroundColor: '#DCDCDC'
         }
         };
@@ -89,12 +91,37 @@
 <div class="content">
     <div class="gap-60"></div>
     <div class="gap-40"></div>
-
     <div id="chart">
 
-        <div style="width:180px; border: none;"></div>
-        <div id="country_chart" style="width: 700px; height: 450px;"></div>
-        <div id="currency_chart" style="width: 700px; height: 450px;"></div>
+        <div>
+            <table id="currency_table">
+            <tr>
+                <th> Nr</th>
+                <th> Amount</th>
+                <th> Rate</th>
+                <th> Target Amount</th>
+                <th> Fee</th>
+                <th> Date</th>
+                <th> Currency</th>
+            </tr>
+            <tr th:each="item : ${currencies}">
+                <td th:text="${item.nr}"></td>
+                <td th:text="${item.amount}"></td>
+                <td th:text="${item.rate}"></td>
+                <td th:text="${#numbers.formatDecimal(item.targetAmount, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${item.fee}"></td>
+                <td th:text="${item.date}"></td>
+                <td th:text="${item.targetCurrency}"></td>
+            </tr>
+        </table>
+        </div>
+        <div style="width:30px; border: none;"></div>
+        <div style="display: inline-block; vertical-align: top">
+            <div id="country_chart" style="width: 600px; height: 450px;"></div>
+
+            <div id="currency_chart" style="width: 600px; height: 400px;"></div>
+        </div>
+
     </div>
     <div class="gap-60"></div>
     <div class="gap-40"></div>

@@ -4,6 +4,7 @@ import org.pcasano.portfoliotracker.model.Dividend;
 import org.pcasano.portfoliotracker.model.Portfolio;
 import org.pcasano.portfoliotracker.model.Trade;
 import org.pcasano.portfoliotracker.service.CompanyService;
+import org.pcasano.portfoliotracker.service.CurrencyService;
 import org.pcasano.portfoliotracker.service.DividendService;
 import org.pcasano.portfoliotracker.service.TradeService;
 import org.springframework.stereotype.Controller;
@@ -21,16 +22,18 @@ import java.util.stream.Stream;
 @Controller
 public class WebsiteController {
 
-    public WebsiteController(DividendService dividendService, TradeService tradeService, CompanyService companyService) {
+    public WebsiteController(DividendService dividendService, TradeService tradeService, CompanyService companyService, CurrencyService currencyService) {
         this.dividendService = dividendService;
         this.tradeService = tradeService;
         this.companyService = companyService;
+        this.currencyService = currencyService;
 
     }
 
     private DividendService dividendService;
     private TradeService tradeService;
     private CompanyService companyService;
+    private CurrencyService currencyService;
 
     private Double eurUsdRatio = null;
     private Double eurGbpRatio = null;
@@ -119,6 +122,7 @@ public class WebsiteController {
         });
         model.addAttribute("listOfCountries", listOfCountries);
         model.addAttribute("listOfCurrencies", listOfCurrencies);
+        model.addAttribute("currencies", currencyService.findAll());
             return "currencyPage.html";
     }
 
@@ -217,10 +221,16 @@ public class WebsiteController {
     }
 
     private Double getEurUsdRatio() throws IOException {
-        return Optional.ofNullable(eurUsdRatio).isPresent() ? eurUsdRatio: YahooFinance.get("EURUSD=X").getQuote().getPrice().doubleValue();
+        if (Optional.ofNullable(eurUsdRatio).isEmpty()) {
+            eurUsdRatio = YahooFinance.get("EURUSD=X").getQuote().getPrice().doubleValue();
+        }
+        return eurUsdRatio;
     }
 
     private Double getEurGbpRatio() throws IOException {
-        return Optional.ofNullable(eurGbpRatio).isPresent() ? eurGbpRatio: YahooFinance.get("EURGBP=X").getQuote().getPrice().doubleValue();
+        if (Optional.ofNullable(eurGbpRatio).isEmpty()) {
+            eurGbpRatio = YahooFinance.get("EURGBP=X").getQuote().getPrice().doubleValue();
+        }
+        return eurGbpRatio;
     }
 }
