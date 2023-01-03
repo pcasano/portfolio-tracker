@@ -88,6 +88,7 @@ li:visited { text-decoration: none; }
 
 #currency_table tr:nth-child(even){background-color: #b6d6d9;}
 #currency_table tr:nth-child(odd){background-color: FloralWhite;}
+#currency_summary tr:nth-child(odd){background-color: FloralWhite;}
 #currency_summary tr:nth-child(even){background-color: #b6d6d9;}
 
 #brute_dividend_table tr:hover {background-color: #ddd;}
