@@ -1,5 +1,6 @@
 package org.pcasano.portfoliotracker.web;
 
+import org.pcasano.portfoliotracker.model.Currency;
 import org.pcasano.portfoliotracker.model.Dividend;
 import org.pcasano.portfoliotracker.model.Portfolio;
 import org.pcasano.portfoliotracker.model.Trade;
@@ -120,9 +121,18 @@ public class WebsiteController {
                             100 * (1 - (portfolioMarketValueBaseCurrency- marketValueBaseCurrencyGivenCurrency) / portfolioMarketValueBaseCurrency))
             );
         });
+        List<Currency> listOfFxOperations = currencyService.findAll();
+
+        double myUsdRate = getMyRateGivenCurrency(listOfFxOperations, "USD");
+        double myGbpRate = getMyRateGivenCurrency(listOfFxOperations, "GBP");
+
         model.addAttribute("listOfCountries", listOfCountries);
         model.addAttribute("listOfCurrencies", listOfCurrencies);
-        model.addAttribute("currencies", currencyService.findAll());
+        model.addAttribute("currencies", listOfFxOperations);
+        model.addAttribute("myUsdRatio", myUsdRate);
+        model.addAttribute("myGbpRatio", myGbpRate);
+        model.addAttribute("currentUsdRatio", eurUsdRatio);
+        model.addAttribute("currentGbpRatio", eurGbpRatio);
             return "currencyPage.html";
     }
 
@@ -232,5 +242,11 @@ public class WebsiteController {
             eurGbpRatio = YahooFinance.get("EURGBP=X").getQuote().getPrice().doubleValue();
         }
         return eurGbpRatio;
+    }
+
+    private double getMyRateGivenCurrency(List<Currency> listOfFxOperations, String currency) {
+        double totalOperationsConverted = listOfFxOperations.stream().filter(fx -> fx.getTargetCurrency().equals(currency)).mapToDouble(fx -> fx.getAmount() * fx.getRate()).sum();
+        double totalOperations = listOfFxOperations.stream().filter(fx -> fx.getTargetCurrency().equals(currency)).mapToDouble(Currency::getAmount).sum();
+        return totalOperationsConverted / totalOperations;
     }
 }

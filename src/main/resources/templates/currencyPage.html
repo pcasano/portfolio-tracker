@@ -91,8 +91,30 @@
 <div class="content">
     <div class="gap-60"></div>
     <div class="gap-40"></div>
+    <table id="currency_summary">
+        <tr>
+            <th> Currency</th>
+            <th> My ratio</th>
+            <th> Market Ratio</th>
+            <th> W/L %</th>
+        </tr>
+        <div>
+            <tr>
+                <td th:text="USD"></td>
+                <td th:text="${myUsdRatio}"></td>
+                <td th:text="${currentUsdRatio}"></td>
+                <td th:text="${#numbers.formatDecimal((100 * (currentUsdRatio - myUsdRatio) / currentUsdRatio), 0, 2, 'POINT') + ' %'}"></td>
+            </tr>
+            <tr>
+                <td th:text="GBP"></td>
+                <td th:text="${myGbpRatio}"></td>
+                <td th:text="${currentGbpRatio}"></td>
+                <td th:text="${#numbers.formatDecimal((100 * (currentGbpRatio - myGbpRatio) / currentGbpRatio), 0, 2, 'POINT') + ' %'}"></td>
+            </tr>
+        </div>
+    </table>
     <div id="chart">
-
+        <div class="gap-20-no-color"></div>
         <div>
             <table id="currency_table">
             <tr>
