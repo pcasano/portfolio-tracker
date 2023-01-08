@@ -153,9 +153,11 @@ public class WebsiteController {
                             getCompanyQuote(symbol).getPrice().doubleValue() / 100 : getCompanyQuote(symbol).getPrice().doubleValue();
 
                     double openPriceOriginalCurrency = filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum() / quantity;
-                    double marketValueBaseCurrency = filteredTradeList
+                    double openValueBaseCurrency = filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceBaseCurrency()).sum();
+                    double marketValueBaseCurrency = quantity * marketPriceOriginalCurrency / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio);
+/*                    double marketValueBaseCurrency = filteredTradeList
                             .stream().
-                            mapToDouble(trade -> trade.getQuantity() * marketPriceOriginalCurrency / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)).sum();
+                            mapToDouble(trade -> trade.getQuantity() * marketPriceOriginalCurrency / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)).sum();*/
                     listOfMarketValuePositionsBaseCurrency.add(List.of(symbol, marketValueBaseCurrency));
                     portfolioList.add(new Portfolio(
                             filteredTradeList.stream().map(Trade::getDescription).findFirst().orElse("N/A"),
@@ -166,7 +168,8 @@ public class WebsiteController {
                             marketValueBaseCurrency,
                             marketPriceOriginalCurrency,
                             currency,
-                            quantity * (marketPriceOriginalCurrency - openPriceOriginalCurrency) / this.getCurrentRatio(currency, eurUsdRatio, eurGbpRatio)
+                            marketValueBaseCurrency - openValueBaseCurrency,
+                            openValueBaseCurrency
                     ));
                 } catch (Exception e) {
                     throw new RuntimeException(e);

@@ -50,7 +50,7 @@ public class Trade {
         this.quantity = quantity;
         this.buySell = buySell;
         this.priceOriginalCurrency = priceOriginalCurrency;
-        this.priceBaseCurrency = priceOriginalCurrency * (1 / rate);
+        this.priceBaseCurrency = priceOriginalCurrency / rate;
         this.priceOperationOriginalCurrency = priceOriginalCurrency * quantity + fee;
         this.priceOperationBaseCurrency = this.priceOperationOriginalCurrency / rate;
         Calendar cal = Calendar.getInstance();

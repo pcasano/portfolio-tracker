@@ -84,7 +84,7 @@
   </div>
 </div>
 <div class="content">
-  <div class="gap-60"></div>
+  <div class="gap-60">PORTFOLIO</div>
   <div class="gap-40"></div>
   <table id="portfolio_summary">
     <tr>
@@ -114,10 +114,10 @@
           <th> Quantity</th>
           <th> O.Price</th>
           <th> M.Price</th>
-          <th> Dif %</th>
-          <th> O.Value $£€</th>
           <th> M.Value $£€</th>
+          <th> Dif %</th>
           <th> Dif Value €</th>
+          <th> O.Value €</th>
           <th> M.Value €</th>
         </tr>
         <tr th:each="item : ${portfolio}">
@@ -127,10 +127,10 @@
           <td th:text="${item.quantity}"></td>
           <td th:text="${#numbers.formatDecimal((item.openPriceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
           <td th:text="${#numbers.formatDecimal((item.marketPriceOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
-          <td th:style="${(100 * (item.marketPriceOriginalCurrency - item.openPriceOriginalCurrency) / item.openPriceOriginalCurrency) > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal((100 * (item.marketPriceOriginalCurrency - item.openPriceOriginalCurrency) / item.openPriceOriginalCurrency), 0, 2, 'POINT') + ' %'}"></td>
-          <td th:text="${#numbers.formatDecimal((item.openValueOriginalCurrency), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
           <td th:text="${#numbers.formatDecimal((item.marketPriceOriginalCurrency * item.quantity), 0, 'COMMA', 2, 'POINT') + ' ' + item.currency}"></td>
+          <td th:style="${(100 * (item.marketPriceOriginalCurrency - item.openPriceOriginalCurrency) / item.openPriceOriginalCurrency) > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal((100 * (item.marketPriceOriginalCurrency - item.openPriceOriginalCurrency) / item.openPriceOriginalCurrency), 0, 2, 'POINT') + ' %'}"></td>
           <td th:style="${item.diffValueBaseCurrency > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal((item.diffValueBaseCurrency), 0, 2, 'POINT') + ' €'}"></td>
+          <td th:text="${#numbers.formatDecimal((item.openValueBaseCurrency), 0, 'COMMA', 2, 'POINT') + ' €'}"></td>
           <td th:text="${#numbers.formatDecimal((item.marketValueBaseCurrency), 0, 'COMMA', 2, 'POINT') + ' €'}"></td>
         </tr>
       </table></div>
