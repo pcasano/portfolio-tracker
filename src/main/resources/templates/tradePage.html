@@ -46,7 +46,7 @@
                     <li><a href="http://localhost:8088/trades-html">Trades</a></li>
                     <li><a href="http://localhost:8088/dividends-html">Dividends</a></li>
                     <li><a href="http://localhost:8088/currency-html">Currency</a></li>
-                    <li><a href="#seccion-5">Trends</a></li>
+                    <li><a href="http://localhost:8088/trends-html">Trends</a></li>
                     <li><a href="#seccion-6">Crypto</a></li>
                 </ul>
             </nav>
@@ -217,8 +217,8 @@
             <td th:text="${trade.priceOriginalCurrency}"></td>
             <td th:text="${trade.fee}"></td>
             <td th:text="${trade.rate}"></td>
-            <td th:text="${trade.priceOperationOriginalCurrency}"></td>
-            <td th:text="${trade.priceOperationBaseCurrency}"></td>
+            <td th:text="${#numbers.formatDecimal((trade.priceOperationOriginalCurrency), 0, 'COMMA', 2, 'POINT')}"></td>
+            <td th:text="${#numbers.formatDecimal((trade.priceOperationBaseCurrency), 0, 'COMMA', 2, 'POINT')}"></td>
             <td th:text="${trade.tradeDate}"></td>
             <td th:text="${trade.month}"></td>
             <td th:text="${trade.year}"></td>

@@ -62,12 +62,12 @@ a:link { text-decoration: none; }
 li:visited { text-decoration: none; }
 
 
-#currency_summary, #brute_dividend_table, #dividend_history_table, #trade_history_table, #trade_table, #portfolio_table, #portfolio_summary, #currency_table {
+#av50_table, #av200_table, #currency_summary, #brute_dividend_table, #dividend_history_table, #trade_history_table, #trade_table, #portfolio_table, #portfolio_summary, #currency_table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
 }
 
-#currency_summary td, #currency_summary th, #currency_table td, #currency_table th, #currency_table td, #portfolio_table td, #portfolio_table th, #portfolio_summary th, #portfolio_summary td, #brute_dividend_table td, #dividend_history_table td, #portfolio_table th, #brute_dividend_table th, #dividend_history_table th, #trade_history_table th, #trade_table th, #trade_history_table td, #trade_table td {
+#av50_table td, #av50_table th, #av200_table td, #av200_table th, #currency_summary td, #currency_summary th, #currency_table td, #currency_table th, #currency_table td, #portfolio_table td, #portfolio_table th, #portfolio_summary th, #portfolio_summary td, #brute_dividend_table td, #dividend_history_table td, #portfolio_table th, #brute_dividend_table th, #dividend_history_table th, #trade_history_table th, #trade_table th, #trade_history_table td, #trade_table td {
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -91,6 +91,12 @@ li:visited { text-decoration: none; }
 #currency_summary tr:nth-child(odd){background-color: FloralWhite;}
 #currency_summary tr:nth-child(even){background-color: #b6d6d9;}
 
+#av50_table tr:nth-child(odd){background-color: FloralWhite;}
+#av50_table tr:nth-child(even){background-color: #b6d6d9;}
+
+#av200_table tr:nth-child(odd){background-color: FloralWhite;}
+#av200_table tr:nth-child(even){background-color: #b6d6d9;}
+
 #brute_dividend_table tr:hover {background-color: #ddd;}
 #dividend_history_table tr:hover {background-color: #ddd;}
 #trade_table tr:hover {background-color: #ddd;}
@@ -99,9 +105,10 @@ li:visited { text-decoration: none; }
 #portfolio_summary tr:hover {background-color: #ddd;}
 #currency_table tr:hover {background-color: #ddd;}
 #currency_summary tr:hover {background-color: #ddd;}
+#av50_table tr:hover {background-color: #ddd;}
+#av200_table tr:hover {background-color: #ddd;}
 
-
-#currency_summary th, #brute_dividend_table th, #dividend_history_table th, #trade_table th, #trade_history_table th, #portfolio_table th, #portfolio_summary th, #currency_table th {
+#av200_table th, #av50_table th, #currency_summary th, #brute_dividend_table th, #dividend_history_table th, #trade_table th, #trade_history_table th, #portfolio_table th, #portfolio_summary th, #currency_table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

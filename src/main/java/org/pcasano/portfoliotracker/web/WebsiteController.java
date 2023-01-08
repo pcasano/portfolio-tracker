@@ -1,9 +1,9 @@
 package org.pcasano.portfoliotracker.web;
 
 import org.pcasano.portfoliotracker.model.Currency;
-import org.pcasano.portfoliotracker.model.Dividend;
 import org.pcasano.portfoliotracker.model.Portfolio;
 import org.pcasano.portfoliotracker.model.Trade;
+import org.pcasano.portfoliotracker.model.Trend;
 import org.pcasano.portfoliotracker.service.CompanyService;
 import org.pcasano.portfoliotracker.service.CurrencyService;
 import org.pcasano.portfoliotracker.service.DividendService;
@@ -11,8 +11,6 @@ import org.pcasano.portfoliotracker.service.TradeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import yahoofinance.YahooFinance;
 import yahoofinance.quotes.stock.StockQuote;
 
@@ -94,7 +92,7 @@ public class WebsiteController {
                 String currency = filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A");
                 String country = filteredTradeList.stream().map(Trade::getCountry).findFirst().orElse("N/A");
                 double marketPriceOriginalCurrency = currency.equals("GBP") ?
-                        getCurrentPriceOriginalCurrency(currency, symbol).getPrice().doubleValue() / 100 : getCurrentPriceOriginalCurrency(currency, symbol).getPrice().doubleValue();
+                        getCompanyQuote(symbol).getPrice().doubleValue() / 100 : getCompanyQuote(symbol).getPrice().doubleValue();
                 listOfPortfolio.add(new Portfolio(
                         symbol,
                         country,
@@ -152,7 +150,7 @@ public class WebsiteController {
                 try {
                     String currency = filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A");
                     double marketPriceOriginalCurrency = currency.equals("GBP") ?
-                            getCurrentPriceOriginalCurrency(currency, symbol).getPrice().doubleValue() / 100 : getCurrentPriceOriginalCurrency(currency, symbol).getPrice().doubleValue();
+                            getCompanyQuote(symbol).getPrice().doubleValue() / 100 : getCompanyQuote(symbol).getPrice().doubleValue();
 
                     double openPriceOriginalCurrency = filteredTradeList.stream().mapToDouble(trade -> trade.getQuantity() * trade.getPriceOriginalCurrency()).sum() / quantity;
                     double marketValueBaseCurrency = filteredTradeList
@@ -199,11 +197,50 @@ public class WebsiteController {
         return "portfolioPage.html";
     }
 
+    @GetMapping("/trends-html")
+    public String getTrendsPage(Model model) throws IOException {
+        List<Trade> tradeList = tradeService.findAll();
+        Set<String> setOfSymbols = new HashSet<>(tradeList.stream().map(Trade::getSymbol).toList());
+        List<Trend> listOfTrends = new ArrayList<>();
+
+        for (String symbol : setOfSymbols) {
+            int quantity = tradeList.stream().filter(trade -> trade.getSymbol().equals(symbol)).mapToInt(Trade::getQuantity).sum();
+            if(quantity > 0) {
+                List<Trade> filteredTradeList = tradeList.stream().filter(trade -> trade.getSymbol().equals(symbol)).toList();
+                String currency = filteredTradeList.stream().map(Trade::getCurrency).findFirst().orElse("N/A");
+                listOfTrends.add(
+                        new Trend(
+                                symbol,
+                                currency.equals("GBP") ? getCompanyQuote(symbol).getPrice().doubleValue() / 100 : getCompanyQuote(symbol).getPrice().doubleValue(),
+                                currency.equals("GBP") ? getCompanyQuote(symbol).getPriceAvg50().doubleValue() / 100 : getCompanyQuote(symbol).getPriceAvg50().doubleValue(),
+                                currency.equals("GBP") ? getCompanyQuote(symbol).getPriceAvg200().doubleValue() / 100 : getCompanyQuote(symbol).getPriceAvg200().doubleValue(),
+                                getCompanyQuote(symbol).getChangeFromAvg50InPercent().doubleValue(),
+                                getCompanyQuote(symbol).getChangeFromAvg200InPercent().doubleValue()
+                        ));
+            }
+        }
+        List<Trend> listTrendsSorted50Avg = new ArrayList<>(listOfTrends);
+        List<Trend> listTrendsSorted200Avg = new ArrayList<>(listOfTrends);
+        listTrendsSorted50Avg.sort(Comparator.comparingDouble(Trend::getChangeInPrice50Avg));
+        listTrendsSorted200Avg.sort(Comparator.comparingDouble(Trend::getChangeInPrice200Avg));
+
+        for(int i=1; i<listTrendsSorted50Avg.size() + 1; i++) {
+            listTrendsSorted50Avg.get(i - 1).setNr(i);
+        }
+        for(int i=1; i<listTrendsSorted200Avg.size() + 1; i++) {
+            listTrendsSorted200Avg.get(i - 1).setNr(i);
+        }
+
+        model.addAttribute("listOfTrends50Avg", listTrendsSorted50Avg.stream().filter(trend -> trend.getNr() < 16).toList());
+        model.addAttribute("listOfTrends200Avg", listTrendsSorted200Avg.stream().filter(trend -> trend.getNr() < 16).toList());
+        return "trendsPage.html";
+    }
+
     private String getYahooSymbol(String symbol) {
         return companyService.findAll().stream().filter(company -> company.getSymbol().equals(symbol)).findFirst().get().getYahooSymbol();
     }
 
-    private StockQuote getCurrentPriceOriginalCurrency(String currency, String symbol) throws IOException {
+    private StockQuote getCompanyQuote(String symbol) throws IOException {
         Optional<StockQuote> op = Optional.ofNullable(mapOfMarketQuotes.get(symbol));
         if(op.isPresent()) {
             return op.get();

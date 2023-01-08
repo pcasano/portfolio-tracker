@@ -80,7 +80,7 @@
                     <li><a href="http://localhost:8088/trades-html">Trades</a></li>
                     <li><a href="http://localhost:8088/dividends-html">Dividends</a></li>
                     <li><a href="http://localhost:8088/currency-html">Currency</a></li>
-                    <li><a href="#seccion-5">Trends</a></li>
+                    <li><a href="http://localhost:8088/trends-html">Trends</a></li>
                     <li><a href="#seccion-6">Crypto</a></li>
                 </ul>
             </nav>
@@ -103,13 +103,13 @@
                 <td th:text="USD"></td>
                 <td th:text="${myUsdRatio}"></td>
                 <td th:text="${currentUsdRatio}"></td>
-                <td th:text="${#numbers.formatDecimal((100 * (currentUsdRatio - myUsdRatio) / currentUsdRatio), 0, 2, 'POINT') + ' %'}"></td>
+                <td th:style="${100 * (currentUsdRatio - myUsdRatio) / currentUsdRatio > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal((100 * (currentUsdRatio - myUsdRatio) / currentUsdRatio), 0, 2, 'POINT') + ' %'}"></td>
             </tr>
             <tr>
                 <td th:text="GBP"></td>
                 <td th:text="${myGbpRatio}"></td>
                 <td th:text="${currentGbpRatio}"></td>
-                <td th:text="${#numbers.formatDecimal((100 * (currentGbpRatio - myGbpRatio) / currentGbpRatio), 0, 2, 'POINT') + ' %'}"></td>
+                <td th:style="${100 * (currentGbpRatio - myGbpRatio) / currentGbpRatio > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal((100 * (currentGbpRatio - myGbpRatio) / currentGbpRatio), 0, 2, 'POINT') + ' %'}"></td>
             </tr>
         </div>
     </table>

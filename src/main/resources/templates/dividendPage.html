@@ -47,7 +47,7 @@
           <li><a href="http://localhost:8088/trades-html">Trades</a></li>
           <li><a href="http://localhost:8088/dividends-html">Dividends</a></li>
           <li><a href="http://localhost:8088/currency-html">Currency</a></li>
-          <li><a href="#seccion-5">Trends</a></li>
+          <li><a href="http://localhost:8088/trends-html">Trends</a></li>
           <li><a href="#seccion-6">Crypto</a></li>
         </ul>
       </nav>
@@ -69,6 +69,7 @@
           <th> 2021</th>
           <th> 2022</th>
           <th> 2023</th>
+          <th> Diff %</th>
         </tr>
         <tr>
           <td th:text=January></td>
@@ -78,6 +79,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['January'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['January'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['January'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['January'] - mapOfDividends2022['January'])/mapOfDividends2022['January'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['January'] - mapOfDividends2022['January'])/mapOfDividends2022['January'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=February></td>
@@ -87,6 +89,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['February'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['February'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['February'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['February'] - mapOfDividends2022['February'])/mapOfDividends2022['February'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['February'] - mapOfDividends2022['February'])/mapOfDividends2022['February'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=March></td>
@@ -96,6 +99,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['March'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['March'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['March'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['March'] - mapOfDividends2022['March'])/mapOfDividends2022['March'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['March'] - mapOfDividends2022['March'])/mapOfDividends2022['March'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=April></td>
@@ -105,6 +109,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['April'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['April'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['April'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['April'] - mapOfDividends2022['April'])/mapOfDividends2022['April'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['April'] - mapOfDividends2022['April'])/mapOfDividends2022['April'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=May></td>
@@ -114,6 +119,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['May'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['May'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['May'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['May'] - mapOfDividends2022['May'])/mapOfDividends2022['May'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['May'] - mapOfDividends2022['May'])/mapOfDividends2022['May'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=June></td>
@@ -123,6 +129,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['June'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['June'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['June'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['June'] - mapOfDividends2022['June'])/mapOfDividends2022['June'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['June'] - mapOfDividends2022['June'])/mapOfDividends2022['June'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=July></td>
@@ -132,6 +139,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['July'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['July'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['July'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['July'] - mapOfDividends2022['July'])/mapOfDividends2022['July'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['July'] - mapOfDividends2022['July'])/mapOfDividends2022['July'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=August></td>
@@ -141,6 +149,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['August'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['August'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['August'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['August'] - mapOfDividends2022['August'])/mapOfDividends2022['August'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['August'] - mapOfDividends2022['August'])/mapOfDividends2022['August'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=September></td>
@@ -150,6 +159,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['September'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['September'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['September'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['September'] - mapOfDividends2022['September'])/mapOfDividends2022['September'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['September'] - mapOfDividends2022['September'])/mapOfDividends2022['September'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=October></td>
@@ -159,6 +169,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['October'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['October'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['October'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['October'] - mapOfDividends2022['October'])/mapOfDividends2022['October'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['October'] - mapOfDividends2022['October'])/mapOfDividends2022['October'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=November></td>
@@ -168,6 +179,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['November'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['November'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['November'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['November'] - mapOfDividends2022['November'])/mapOfDividends2022['November'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['November'] - mapOfDividends2022['November'])/mapOfDividends2022['November'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr>
           <td th:text=December></td>
@@ -177,6 +189,7 @@
           <td th:text="${#numbers.formatDecimal(mapOfDividends2021['December'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2022['December'], 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(mapOfDividends2023['December'], 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['December'] - mapOfDividends2022['December'])/mapOfDividends2022['December'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['December'] - mapOfDividends2022['December'])/mapOfDividends2022['December'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
         <tr class="total_row">
           <td th:text=TOTAL></td>
@@ -186,6 +199,7 @@
           <td th:text="${#numbers.formatDecimal(dividends2021, 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(dividends2022, 1, 'COMMA', 2, 'POINT')}"></td>
           <td th:text="${#numbers.formatDecimal(dividends2023, 1, 'COMMA', 2, 'POINT')}"></td>
+          <td th:style="${100*(mapOfDividends2023['January'] - mapOfDividends2022['January'])/mapOfDividends2022['January'] > 0 ? 'color: green;' : 'color: red;'}" th:text="${#numbers.formatDecimal(100*(mapOfDividends2023['January'] - mapOfDividends2022['January'])/mapOfDividends2022['January'], 1, 'COMMA', 2, 'POINT')}"></td>
         </tr>
       </table>
     </div>

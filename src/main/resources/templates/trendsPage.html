@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trades</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="main">
+    <div class="navbar">
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="http://localhost:8088/portfolio-html">Portfolio</a></li>
+                    <li><a href="http://localhost:8088/trades-html">Trades</a></li>
+                    <li><a href="http://localhost:8088/dividends-html">Dividends</a></li>
+                    <li><a href="http://localhost:8088/currency-html">Currency</a></li>
+                    <li><a href="http://localhost:8088/trends-html">Trends</a></li>
+                    <li><a href="#seccion-6">Crypto</a></li>
+                </ul>
+            </nav>
+            <div class="gap-20"></div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="gap-60"></div>
+    <div class="gap-40"></div>
+    <div>
+        <table id="av50_table">
+            <tr>
+                <th> Nr</th>
+                <th> Symbol</th>
+                <th> Market Price</th>
+                <th> 50 Avg Price</th>
+                <th> Change 50Avg %</th>
+            </tr>
+            <tr th:each="item : ${listOfTrends50Avg}">
+                <td th:text="${item.nr}"></td>
+                <td th:text="${item.symbol}"></td>
+                <td th:text="${item.marketPriceOriginalCurrency}"></td>
+                <td th:text="${item.price50AvgOriginalCurrency}"></td>
+                <td th:style="${item.changeInPrice50Avg > 0 ? 'color: green;' : 'color: red;'}" th:text="${item.changeInPrice50Avg + ' %'}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="gap-40"></div>
+    <div>
+        <table id="av200_table">
+            <tr>
+                <th> Nr</th>
+                <th> Symbol</th>
+                <th> Market Price</th>
+                <th> 200 Avg Price</th>
+                <th> Change 200Avg %</th>
+            </tr>
+            <tr th:each="item : ${listOfTrends200Avg}">
+                <td th:text="${item.nr}"></td>
+                <td th:text="${item.symbol}"></td>
+                <td th:text="${item.marketPriceOriginalCurrency}"></td>
+                <td th:text="${item.price200AvgOriginalCurrency}"></td>
+                <td th:style="${item.changeInPrice200Avg > 0 ? 'color: green;' : 'color: red;'}" th:text="${item.changeInPrice200Avg + ' %'}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="gap-60"></div>
+    <div class="gap-40"></div>
+</div>
+
+
+</body>
+</html>
